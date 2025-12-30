@@ -1,5 +1,8 @@
 
+
+import scenes.InbetweenScene;
 import scenes.RoundScene;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,26 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Party Game");
-
-        VBox root = new VBox(10);
-        root.setPadding(new Insets(20));
-
-        Label title = new Label("Welcome to Party Game!");
-        title.setStyle("-fx-font-size: 24; -fx-font-weight: bold;");
-
-        Button startButton = new Button("Start Game");
-        startButton.setStyle("-fx-font-size: 14; -fx-padding: 10;");
-
-        startButton.setOnAction(e -> {
-            System.out.println("Game Started!");
-            RoundScene roundScene = new RoundScene();
-            Scene gameScene = roundScene.createRoundScene(primaryStage);
-            primaryStage.setScene(gameScene);
-        });
-        root.getChildren().addAll(title, startButton);
-
-        Scene scene = new Scene(root, 400, 300);
+        InbetweenScene inbetweenScene = new InbetweenScene();
+        Scene scene = inbetweenScene.createInbetweenScene(primaryStage);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
