@@ -1,5 +1,5 @@
 
-
+import scenes.RoundScene;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -22,8 +22,13 @@ public class Main extends Application {
 
         Button startButton = new Button("Start Game");
         startButton.setStyle("-fx-font-size: 14; -fx-padding: 10;");
-        startButton.setOnAction(e -> System.out.println("Game started!"));
 
+        startButton.setOnAction(e -> {
+            System.out.println("Game Started!");
+            RoundScene roundScene = new RoundScene();
+            Scene gameScene = roundScene.createRoundScene(primaryStage);
+            primaryStage.setScene(gameScene);
+        });
         root.getChildren().addAll(title, startButton);
 
         Scene scene = new Scene(root, 400, 300);
