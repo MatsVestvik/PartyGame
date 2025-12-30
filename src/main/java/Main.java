@@ -14,11 +14,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
-        InbetweenScene inbetweenScene = new InbetweenScene();
-        Scene scene = inbetweenScene.createInbetweenScene(primaryStage);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void start(Stage stage) {
+        InbetweenScene inbetweenScene = new InbetweenScene(stage);
+        inbetweenScene.runInbetweenScene();
+        stage.show();
     }
 
     public static void main(String[] args) {

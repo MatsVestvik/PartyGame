@@ -5,8 +5,19 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
+
 public class InbetweenScene {
-    public Scene createInbetweenScene(Stage stage) {
+    private Stage stage;
+
+    public InbetweenScene(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void runInbetweenScene() {
+        createInbetweenScene();
+    }
+
+    public Scene createInbetweenScene() {
         stage.setTitle("Party Game");
         VBox root = new VBox(10);
         root.setPadding(new Insets(20));
@@ -19,9 +30,8 @@ public class InbetweenScene {
 
         startButton.setOnAction(e -> {
             System.out.println("Game Started!");
-            RoundScene roundScene = new RoundScene();
-            Scene gameScene = roundScene.createRoundScene(stage);
-            stage.setScene(gameScene);
+            RoundScene roundScene = new RoundScene(stage);
+            roundScene.runRoundScene();
         });
         root.getChildren().addAll(title, startButton);
         Scene scene = new Scene(root, 400, 300);
