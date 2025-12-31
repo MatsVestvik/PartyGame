@@ -1,5 +1,5 @@
 package scenes;
-import counter.displayNumbers;
+import counter.DisplayNumbers;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -37,8 +37,7 @@ public class InbetweenScene {
             RoundScene roundScene = new RoundScene(stage);
             roundScene.runRoundScene();
         });
-        HBox numberDisplay = displayNumbers.displayInt(12345);
-        root.getChildren().addAll(title, startButton, numberDisplay);
+        root.getChildren().addAll(title, startButton);
         Scene scene = new Scene(root, 400, 300);
         return scene;
     }    

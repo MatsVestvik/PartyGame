@@ -15,4 +15,16 @@ public class LoadImage {
             return null;
         }
     }
+    public static Image load(String path, double width, double height, boolean preserveRatio, boolean smooth) {
+        try {
+            Image img = new Image(path, width, height, preserveRatio, smooth);
+            return img;
+        } catch (Exception e) {
+            for (int i = 0; i < 50; i++) {
+                System.out.println("Failed to load image at path: " + path);
+            }
+            
+            return null;
+        }
+    }
 }

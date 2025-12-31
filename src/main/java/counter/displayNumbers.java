@@ -5,19 +5,36 @@ import util.LoadImage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class displayNumbers {
-   public static HBox displayInt(int number) {
-        HBox hbox = new HBox();
+public class DisplayNumbers {
+    private HBox numberBox;
+    private int number;
+    public DisplayNumbers() {
+        numberBox = new HBox();
+        number = 0;
+    }   
+
+    public HBox getNumberBox() {
+        return numberBox;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+        numberBox.getChildren().clear();
         for (int i = 0; i < String.valueOf(number).length(); i++) {
             char digitChar = String.valueOf(number).charAt(i);
             int digit = Character.getNumericValue(digitChar);
-            Image digitImage = LoadImage.load("file:src/main/resources/images/numbers/" + digit + ".png");
+            Image digitImage = LoadImage.load("numbers/pixil-frame-" + digit + ".png",8*40, 12*40, false, false);
             ImageView digitImageView = new ImageView(digitImage);
-            digitImageView.setFitWidth(500);
-            digitImageView.setPreserveRatio(true);
-            digitImageView.setSmooth(false);
-            hbox.getChildren().add(digitImageView);
+        
+            numberBox.getChildren().add(digitImageView);
         }
-        return hbox;
-   } 
+    }
+
+    public void increaseNumber(int increment) {
+        setNumber(number + increment);
+    }
 }
