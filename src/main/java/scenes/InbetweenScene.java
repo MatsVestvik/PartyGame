@@ -14,7 +14,8 @@ public class InbetweenScene {
     }
 
     public void runInbetweenScene() {
-        createInbetweenScene();
+        Scene scene = createInbetweenScene();
+        stage.setScene(scene);
     }
 
     public Scene createInbetweenScene() {
