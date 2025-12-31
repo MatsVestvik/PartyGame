@@ -18,8 +18,6 @@ public class RoundScene {
     }
     public Scene createRoundScene() {
         stage.setTitle("Round Scene");
-        // Implement the round scene UI here
-        // For demonstration, we'll just create a simple scene
         VBox root = new VBox(10);
         root.setPadding(new Insets(20));
 

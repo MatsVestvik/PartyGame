@@ -1,9 +1,11 @@
 package scenes;
+import counter.displayNumbers;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class InbetweenScene {
@@ -15,6 +17,7 @@ public class InbetweenScene {
 
     public void runInbetweenScene() {
         Scene scene = createInbetweenScene();
+        stage.setFullScreen(true);
         stage.setScene(scene);
     }
 
@@ -34,7 +37,8 @@ public class InbetweenScene {
             RoundScene roundScene = new RoundScene(stage);
             roundScene.runRoundScene();
         });
-        root.getChildren().addAll(title, startButton);
+        HBox numberDisplay = displayNumbers.displayInt(12345);
+        root.getChildren().addAll(title, startButton, numberDisplay);
         Scene scene = new Scene(root, 400, 300);
         return scene;
     }    
