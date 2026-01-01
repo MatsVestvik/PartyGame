@@ -24,6 +24,11 @@ public class DisplayNumbers {
     public void setNumber(int number) {
         this.number = number;
         numberBox.getChildren().clear();
+        if (number < 0) {
+            Image minusImage = LoadImage.load("numbers/pixil-frame--.png",8*40, 12*40, false, false);
+            ImageView minusImageView = new ImageView(minusImage);
+            numberBox.getChildren().add(minusImageView);
+        }
         for (int i = 0; i < String.valueOf(number).length(); i++) {
             char digitChar = String.valueOf(number).charAt(i);
             int digit = Character.getNumericValue(digitChar);
