@@ -17,6 +17,7 @@ public class RoundScene {
     }
     public void runRoundScene() {
         Scene scene = createRoundScene();
+        stage.setFullScreen(true);
         stage.setScene(scene);
     }
     public Scene createRoundScene() {
