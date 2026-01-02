@@ -1,5 +1,6 @@
 package scenes;
 
+import java.util.Random;
 import cards.Base;
 import javafx.scene.layout.HBox;
 import symbolsview.Symbols;
@@ -27,12 +28,21 @@ public class RoundScene {
         stage.setScene(scene);
     }
     public Scene createRoundScene() {
-      
+        VBox root = new VBox(10);
         HBox cards = new HBox();
-        Base baseCard = new Base(5, 3, 2, 4);
-        Base anotherBaseCard = new Base(2, 4, 1, 3);
+        Base baseCard = new Base(5, 3, 2, 4, 5);
+        Base anotherBaseCard = new Base(2, 4, 1, 3, 5);
+
+        Button randomizeButton = new Button("Randomize Cards");
+        randomizeButton.setOnAction(e -> {
+              baseCard.setCashVisual(new Random().nextInt(10));
+              baseCard.setTroubleVisual(new Random().nextInt(10));
+              baseCard.setCostVisual(new Random().nextInt(10)); 
+              baseCard.setHeartVisual(new Random().nextInt(10));
+        });
         cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane());
-        Scene scene = new Scene(cards, 400, 300);
+        root.getChildren().addAll(cards, randomizeButton);
+        Scene scene = new Scene(root, 400, 300);
         return scene;
     }    
 }
