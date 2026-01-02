@@ -28,10 +28,11 @@ public class RoundScene {
     }
     public Scene createRoundScene() {
       
-
-        Base baseCard = new Base(5, 3, 2);
-
-        Scene scene = new Scene(baseCard.getCardPane(), 400, 300);
+        HBox cards = new HBox();
+        Base baseCard = new Base(5, 3, 2, 4);
+        Base anotherBaseCard = new Base(2, 4, 1, 3);
+        cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane());
+        Scene scene = new Scene(cards, 400, 300);
         return scene;
     }    
 }

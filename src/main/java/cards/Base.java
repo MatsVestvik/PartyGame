@@ -24,11 +24,13 @@ public class Base {
     int cash;
     int trouble;
     int cost;
+    int heart;
 
-    public Base(int cash, int trouble, int cost) {
+    public Base(int cash, int trouble, int cost, int heart) {
         this.cash = cash;
         this.trouble = trouble;
         this.cost = cost;
+        this.heart = heart;
         createCardVisuals(5);
     }
     public StackPane getCardPane() {
@@ -46,7 +48,7 @@ public class Base {
 
     public HBox createStatBox(int scale, String symbolName, int value) {
         HBox statBox = new HBox(2);
-        ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",15 *scale/2,15 *scale/2, true, false));
+        ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale/2,12 *scale/2, true, false));
         DisplayNumbers valueLabel = new DisplayNumbers(scale/2);
         valueLabel.setNumber(value);
         
@@ -62,12 +64,13 @@ public class Base {
         ImageView cardImageView = new ImageView(cardImage);
         
         VBox statsBox = new VBox(5);
-        statsBox.getChildren().add(createStatBox(scale, "cash", 4));
-        statsBox.getChildren().add(createStatBox(scale, "trouble", 2));
-        statsBox.getChildren().add(createStatBox(scale, "coin", 3));
-        statsBox.getChildren().add(createStatBox(scale, "heart", 1));
+        statsBox.getChildren().add(createStatBox(scale, "cash", cash));
+        statsBox.getChildren().add(createStatBox(scale, "trouble", trouble));
+        statsBox.getChildren().add(createStatBox(scale, "coin", cost));
+        statsBox.getChildren().add(createStatBox(scale, "heart", heart));
         cardPane.getChildren().add(cardImageView);
         cardPane.getChildren().add(statsBox); 
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
+        StackPane.setAlignment(statsBox, Pos.CENTER);
     }
 }
