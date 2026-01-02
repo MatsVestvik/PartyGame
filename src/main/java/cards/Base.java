@@ -1,4 +1,9 @@
+package cards;
+
+import javafx.scene.layout.StackPane;
+
 public class Base {
+    StackPane cardPane;
     int cash;
     int trouble;
     int cost;
@@ -6,6 +11,6 @@ public class Base {
     public Base(int cash, int trouble, int cost) {
         this.cash = cash;
         this.trouble = trouble;
-        this.cost = cost;        
+        this.cost = cost;
     }
 }

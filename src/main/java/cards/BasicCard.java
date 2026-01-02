@@ -1,6 +1,5 @@
 package cards;
 
-import java.util.Base;
 import java.util.Stack;
 
 import javafx.scene.layout.StackPane;
@@ -11,6 +10,5 @@ public class BasicCard extends Base{
         super(cash, trouble, cost);
     }    
     public void activateAbility() {
-        // To be overridden by subclasses
     }
 }
