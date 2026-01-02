@@ -2,7 +2,9 @@ package cards;
 
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
+import counter.DisplayBar;
 
+import javafx.geometry.Insets;
 import java.util.Stack;
 import javafx.scene.image.Image;
 import counter.DisplayNumbers;
@@ -51,8 +53,9 @@ public class Base {
         ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale/2,12 *scale/2, true, false));
         DisplayNumbers valueLabel = new DisplayNumbers(scale/2);
         valueLabel.setNumber(value);
-        
-        statBox.getChildren().addAll(symbolImageView, valueLabel.getNumberBox());
+        DisplayBar displayBar = new DisplayBar(scale);
+        displayBar.setNumber(value);
+        statBox.getChildren().addAll(symbolImageView, valueLabel.getNumberBox(), displayBar.getNumberBox());
         return statBox;
     }
 
@@ -71,6 +74,6 @@ public class Base {
         cardPane.getChildren().add(cardImageView);
         cardPane.getChildren().add(statsBox); 
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
-        StackPane.setAlignment(statsBox, Pos.CENTER);
+        StackPane.setMargin(statsBox, new Insets(300 , 0, 0, 20));
     }
 }
