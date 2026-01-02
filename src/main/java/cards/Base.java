@@ -34,11 +34,11 @@ public class Base {
     int heart;
 
     public Base(int cash, int trouble, int cost, int heart, int scale) {
-        this.cash = cash;
-        this.trouble = trouble;
-        this.cost = cost;
-        this.heart = heart;
         this.scale = scale;
+        setCashVisual(cash);
+        setTroubleVisual(trouble);
+        setCostVisual(cost);
+        setHeartVisual(heart);
         createCardVisuals();
     }
     public StackPane getCardPane() {
@@ -54,19 +54,19 @@ public class Base {
         return intCost;
     }
     public void setTroubleVisual(int trouble) {
-        this.troubleBox = createStatBox(scale,"trouble", trouble);
+        this.troubleBox = createStatBox("trouble", trouble);
         setTrouble(trouble);
     }
     public void setCostVisual(int cost) {
-        this.costBox = createStatBox(scale,"coin", cost);
+        this.costBox = createStatBox("coin", cost);
         setCost(cost);
     }
     public void setHeartVisual(int heart) {
-        this.heartBox = createStatBox(scale,"heart", heart);
+        this.heartBox = createStatBox("heart", heart);
         setHeart(heart);
     }
     public void setCashVisual(int cash) {
-        this.cashBox = createStatBox(scale,"cash", cash);
+        this.cashBox = createStatBox("cash", cash);
         setCash(cash);
     }
     public void setCost(int cost) {
@@ -82,12 +82,13 @@ public class Base {
         this.heart = heart;
     }
 
-    public HBox createStatBox(int scale, String symbolName, int value) {
-        HBox statBox = new HBox(2);
-        ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale/2,12 *scale/2, true, false));
-        DisplayNumbers valueLabel = new DisplayNumbers(scale/2);
+    public HBox createStatBox(String symbolName, int value) {
+        HBox statBox = new HBox(scale/10);
+        int statsScale = scale;
+        ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *statsScale/1.5,12 *statsScale/1.5, true, false));
+        DisplayNumbers valueLabel = new DisplayNumbers((int)(statsScale/1.5));
         valueLabel.setNumber(value);
-        DisplayBar displayBar = new DisplayBar(scale);
+        DisplayBar displayBar = new DisplayBar(statsScale);
         displayBar.setNumber(value);
         statBox.getChildren().addAll(symbolImageView, valueLabel.getNumberBox(), displayBar.getNumberBox());
         return statBox;
@@ -100,14 +101,14 @@ public class Base {
         
         ImageView cardImageView = new ImageView(cardImage);
         
-        VBox statsBox = new VBox(5);
-        statsBox.getChildren().add(createStatBox(scale, "cash", cash));
-        statsBox.getChildren().add(createStatBox(scale, "trouble", trouble));
-        statsBox.getChildren().add(createStatBox(scale, "coin", cost));
-        statsBox.getChildren().add(createStatBox(scale, "heart", heart));
+        VBox statsBox = new VBox(5 * scale);
+        statsBox.getChildren().add(cashBox);
+        statsBox.getChildren().add(troubleBox);
+        statsBox.getChildren().add(costBox);
+        statsBox.getChildren().add(heartBox);
         cardPane.getChildren().add(cardImageView);
         cardPane.getChildren().add(statsBox); 
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
-        StackPane.setMargin(statsBox, new Insets(300 , 0, 0, 20));
+        StackPane.setMargin(statsBox, new Insets(40*scale, 0, 0, 4*scale));
     }
 }
