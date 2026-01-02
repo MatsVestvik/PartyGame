@@ -8,9 +8,11 @@ import javafx.scene.image.ImageView;
 public class DisplayNumbers {
     private HBox numberBox;
     private int number;
-    public DisplayNumbers() {
+    private int scale;
+    public DisplayNumbers(int scale) {
         numberBox = new HBox();
         number = 0;
+        this.scale = scale;
     }   
 
     public HBox getNumberBox() {
@@ -24,7 +26,7 @@ public class DisplayNumbers {
     public void setNumber(int number) {
         this.number = number;
         numberBox.getChildren().clear();
-        int scale = 20;
+        int scale = this.scale;
         if (number < 0) {
             Image minusImage = LoadImage.load("numbers/pixil-frame--.png",8*scale, 12*scale, false, false);
             ImageView minusImageView = new ImageView(minusImage);

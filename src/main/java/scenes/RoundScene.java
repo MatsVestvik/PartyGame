@@ -1,5 +1,6 @@
 package scenes;
 
+import cards.Base;
 import javafx.scene.layout.HBox;
 import symbolsview.Symbols;
 import util.LoadImage;
@@ -34,23 +35,15 @@ public class RoundScene {
 
         Label roundLabel = new Label("This is the Round Scene!");
         roundLabel.setStyle("-fx-font-size: 24; -fx-font-weight: bold;");
-        DisplayNumbers numberDisplay = new DisplayNumbers();
-        numberDisplay.setNumber(0);
 
         ImageView coinView = Symbols.getSymbol("coin", 50, 50);
         ImageView heartView = Symbols.getSymbol("heart", 50, 50);
         ImageView cashView = Symbols.getSymbol("cash", 50, 50);
         ImageView troubleView = Symbols.getSymbol("trouble", 50, 50);
         HBox symbolsBox = new HBox(10, coinView, heartView, cashView, troubleView);
-        root.getChildren().addAll(roundLabel, numberDisplay.getNumberBox(), increaseNumberButton, decreaseNumberButton, symbolsBox);
 
-        increaseNumberButton.setOnAction(e -> {
-            numberDisplay.increaseNumber(1);
-        });
-
-        decreaseNumberButton.setOnAction(e -> {
-            numberDisplay.increaseNumber(-1);
-        });
+        Base baseCard = new Base(5, 3, 2);
+        root.getChildren().addAll(roundLabel, increaseNumberButton, decreaseNumberButton, symbolsBox, baseCard.getCardPane());
 
         Scene scene = new Scene(root, 400, 300);
         return scene;
