@@ -24,6 +24,8 @@ public class Base {
     HBox cashBox;
     HBox costBox;
     HBox heartBox;
+    ImageView cardImageView;
+    ImageView rareImageView;
     DisplayNumbers cashDisplay;
     DisplayNumbers troubleDisplay;
     DisplayNumbers costDisplay;
@@ -37,14 +39,19 @@ public class Base {
     int trouble;
     int cost;
     int heart;
+    int color;
+    int rarity;
 
-    public Base(int cash, int trouble, int cost, int heart, int scale) {
+    public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity) {
         this.scale = scale;
         setCashBox(cash);
         setTroubleBox(trouble);
         setCostBox(cost);
         setHeartBox(heart);
+        setCardImageView(color);
+        setRarityImageView(rarity);
         createCardVisuals();
+
     }
     public StackPane getCardPane() {
         return cardPane;
@@ -61,7 +68,6 @@ public class Base {
     public HBox getHeartBox() {
         return heartBox;
     }
-
     public void setTroubleBox(int trouble) {
         this.troubleDisplay = new DisplayNumbers(scale);
         this.troubleBar = new DisplayBar(scale);
@@ -86,6 +92,31 @@ public class Base {
         this.cashBox = createStatBox("cash", cash, cashDisplay, cashBar);
         setCash(cash);
     }
+    public void setCardImageView(int color) {
+        this.color = color;
+        ImageView newImageView = intToColor.getColorImageView(color, scale);
+        if (cardPane != null) {
+            int index = cardPane.getChildren().indexOf(cardImageView);
+            if (index >= 0) {
+                cardPane.getChildren().set(index, newImageView);
+                StackPane.setAlignment(newImageView, Pos.TOP_LEFT);
+            }
+        }
+        this.cardImageView = newImageView;
+    }
+    public void setRarityImageView(int rarity) {
+        this.rarity = rarity;
+        ImageView newRareImageView = intToRare.getRareImage(rarity, scale);
+        if (cardPane != null) {
+            int index = cardPane.getChildren().indexOf(rareImageView);
+            if (index >= 0) {
+                cardPane.getChildren().set(index, newRareImageView);
+                StackPane.setAlignment(newRareImageView, Pos.TOP_LEFT);
+                StackPane.setMargin(newRareImageView, new Insets(6*scale, 0, 0, 0));
+            }
+        }
+        this.rareImageView = newRareImageView;
+    }
 
     public void setCost(int cost) {
         this.cost = cost;
@@ -99,6 +130,7 @@ public class Base {
     public void setHeart(int heart) {
         this.heart = heart;
     }
+    
 
     public void updateCash(int cash) {
         setCash(cash);
@@ -153,14 +185,9 @@ public class Base {
 
     public void createCardVisuals() {
         this.cardPane = new StackPane();
-        Image cardImage = LoadImage.load("card/card.png",80 *scale,107*scale, true, false); 
-
         
-        ImageView cardImageView = new ImageView(cardImage);
         Image placeholderImage = LoadImage.load("cardArt/placeholder.png",70*scale,37*scale, true, false);
         ImageView placeholderImageView = new ImageView(placeholderImage);
-        Image normTag = LoadImage.load("tag/NORM.png",34*scale,9*scale, true, false);
-        ImageView normTagImageView = new ImageView(normTag);
         
         VBox statsBox = new VBox(2*scale);
         statsBox.getChildren().add(cashBox);
@@ -170,9 +197,9 @@ public class Base {
         cardPane.getChildren().add(cardImageView);
         cardPane.getChildren().add(placeholderImageView);
         cardPane.getChildren().add(statsBox); 
-        cardPane.getChildren().add(normTagImageView);
-        StackPane.setAlignment(normTagImageView, Pos.TOP_LEFT);
-        StackPane.setMargin(normTagImageView, new Insets(6*scale, 0, 0, 0));
+        cardPane.getChildren().add(rareImageView);
+        StackPane.setAlignment(rareImageView, Pos.TOP_LEFT);
+        StackPane.setMargin(rareImageView, new Insets(6*scale, 0, 0, 0));
         StackPane.setAlignment(placeholderImageView, Pos.TOP_CENTER);
         StackPane.setMargin(placeholderImageView, new Insets(5*scale, 0, 0, 0));
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);

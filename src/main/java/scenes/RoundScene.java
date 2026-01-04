@@ -30,24 +30,31 @@ public class RoundScene {
     public Scene createRoundScene() {
         VBox root = new VBox(10);
         HBox cards = new HBox();
-        Base baseCard = new Base(5, 3, 2, 4, 5);
-        Base anotherBaseCard = new Base(2, 4, 1, 3, 5);
-
+        int scale = 2;
+        Base baseCard = new Base(5, 3, 2, 4, scale, 1, 1);
+        Base anotherBaseCard = new Base(2, 4, 1, 3, scale, 2, 2);
+        Base thirdBaseCard = new Base(3, 2, 5, 1, scale, 1, 1);
+        Base fourthBaseCard = new Base(4, 5, 3, 2, scale, 1, 2);
         Button randomizeButton = new Button("Randomize Cards");
         randomizeButton.setOnAction(e -> {
-              baseCard.updateCash(new Random().nextInt(10));
-              baseCard.updateTrouble(new Random().nextInt(10));
-              baseCard.updateCost(new Random().nextInt(10)); 
-              baseCard.updateHeart(new Random().nextInt(10));
-              
-              anotherBaseCard.updateCash(new Random().nextInt(10));
-              anotherBaseCard.updateTrouble(new Random().nextInt(10));
-              anotherBaseCard.updateCost(new Random().nextInt(10)); 
-              anotherBaseCard.updateHeart(new Random().nextInt(10));
+            randomizeCard(baseCard);
+            randomizeCard(anotherBaseCard);
+            randomizeCard(thirdBaseCard);
+            randomizeCard(fourthBaseCard);
         });
-        cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane());
+        cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane(), thirdBaseCard.getCardPane(), fourthBaseCard.getCardPane());
         root.getChildren().addAll(cards, randomizeButton);
         Scene scene = new Scene(root, 400, 300);
         return scene;
     }    
+    
+    public static void randomizeCard(Base card) {
+        Random rand = new Random();
+        card.updateCash(rand.nextInt(10));
+        card.updateTrouble(rand.nextInt(10));
+        card.updateCost(rand.nextInt(10)); 
+        card.updateHeart(rand.nextInt(10));
+        card.setCardImageView(rand.nextInt(2) + 1);
+        card.setRarityImageView(rand.nextInt(2) + 1);   
+    }
 }
