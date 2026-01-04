@@ -6,6 +6,8 @@ import counter.DisplayBar;
 
 import javafx.geometry.Insets;
 import java.util.Stack;
+
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import counter.DisplayNumbers;
 
@@ -26,6 +28,10 @@ public class Base {
     HBox heartBox;
     ImageView cardImageView;
     ImageView rareImageView;
+    ImageView cardArtView;
+    ImageView backSide;
+    Button flipButton;
+    StackPane back;
     DisplayNumbers cashDisplay;
     DisplayNumbers troubleDisplay;
     DisplayNumbers costDisplay;
@@ -42,13 +48,14 @@ public class Base {
     int color;
     int rarity;
 
-    public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity) {
+    public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity, String artName) {
         this.scale = scale;
         setCashBox(cash);
         setTroubleBox(trouble);
         setCostBox(cost);
         setHeartBox(heart);
         setCardImageView(color);
+        setCardArtView(artName);
         setRarityImageView(rarity);
         createCardVisuals();
 
@@ -67,6 +74,9 @@ public class Base {
     }
     public HBox getHeartBox() {
         return heartBox;
+    }
+    public ImageView getCardArtView() {
+        return cardArtView;
     }
     public void setTroubleBox(int trouble) {
         this.troubleDisplay = new DisplayNumbers(scale);
@@ -116,6 +126,17 @@ public class Base {
             }
         }
         this.rareImageView = newRareImageView;
+    }
+    public void setCardArtView(String artName) {
+        this.cardArtView = cardArts.getCardArt(artName, scale);
+        if (cardPane != null) {
+            int index = cardPane.getChildren().indexOf(cardArtView);
+            if (index >= 0) {
+                cardPane.getChildren().set(index, cardArtView);
+                StackPane.setAlignment(cardArtView, Pos.TOP_CENTER);
+                StackPane.setMargin(cardArtView, new Insets(5*scale, 0, 0, 0));
+            }
+        }
     }
 
     public void setCost(int cost) {
@@ -186,23 +207,28 @@ public class Base {
     public void createCardVisuals() {
         this.cardPane = new StackPane();
         
-        Image placeholderImage = LoadImage.load("cardArt/placeholder.png",70*scale,37*scale, true, false);
-        ImageView placeholderImageView = new ImageView(placeholderImage);
-        
         VBox statsBox = new VBox(2*scale);
         statsBox.getChildren().add(cashBox);
         statsBox.getChildren().add(troubleBox);
         statsBox.getChildren().add(costBox);
         statsBox.getChildren().add(heartBox);
         cardPane.getChildren().add(cardImageView);
-        cardPane.getChildren().add(placeholderImageView);
+        cardPane.getChildren().add(cardArtView);
         cardPane.getChildren().add(statsBox); 
         cardPane.getChildren().add(rareImageView);
         StackPane.setAlignment(rareImageView, Pos.TOP_LEFT);
         StackPane.setMargin(rareImageView, new Insets(6*scale, 0, 0, 0));
-        StackPane.setAlignment(placeholderImageView, Pos.TOP_CENTER);
-        StackPane.setMargin(placeholderImageView, new Insets(5*scale, 0, 0, 0));
+        StackPane.setAlignment(cardArtView, Pos.TOP_CENTER);
+        StackPane.setMargin(cardArtView, new Insets(5*scale, 0, 0, 0));
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
         StackPane.setMargin(statsBox, new Insets(45*scale, 0, 0, 4*scale));
+    }
+    
+    public void createBackSide() {
+        back = new StackPane();
+        backSide = new ImageView(LoadImage.load("card/back.png", 80*scale, 107*scale, true, false));
+        flipButton = new Button("Flip");
+        back.getChildren().add(backSide);
+        back.getChildren().add(flipButton);
     }
 }
