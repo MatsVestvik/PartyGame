@@ -24,6 +24,14 @@ public class Base {
     HBox cashBox;
     HBox costBox;
     HBox heartBox;
+    DisplayNumbers cashDisplay;
+    DisplayNumbers troubleDisplay;
+    DisplayNumbers costDisplay;
+    DisplayNumbers heartDisplay;
+    DisplayBar cashBar;
+    DisplayBar troubleBar;
+    DisplayBar costBar;
+    DisplayBar heartBar;
     int scale;
     int cash;
     int trouble;
@@ -55,19 +63,27 @@ public class Base {
     }
 
     public void setTroubleBox(int trouble) {
-        this.troubleBox = createStatBox("trouble", trouble);
+        this.troubleDisplay = new DisplayNumbers(scale);
+        this.troubleBar = new DisplayBar(scale);
+        this.troubleBox = createStatBox("trouble", trouble, troubleDisplay, troubleBar);
         setTrouble(trouble);
     }
     public void setCostBox(int cost) {
-        this.costBox = createStatBox("coin", cost);
+        this.costDisplay = new DisplayNumbers(scale);
+        this.costBar = new DisplayBar(scale);
+        this.costBox = createStatBox("coin", cost, costDisplay, costBar);
         setCost(cost);
     }
     public void setHeartBox(int heart) {
-        this.heartBox = createStatBox("heart", heart);
+        this.heartDisplay = new DisplayNumbers(scale);
+        this.heartBar = new DisplayBar(scale);
+        this.heartBox = createStatBox("heart", heart, heartDisplay, heartBar);
         setHeart(heart);
     }
     public void setCashBox(int cash) {
-        this.cashBox = createStatBox("cash", cash);
+        this.cashDisplay = new DisplayNumbers(scale);
+        this.cashBar = new DisplayBar(scale);
+        this.cashBox = createStatBox("cash", cash, cashDisplay, cashBar);
         setCash(cash);
     }
 
@@ -84,12 +100,50 @@ public class Base {
         this.heart = heart;
     }
 
-    public HBox createStatBox(String symbolName, int value) {
+    public void updateCash(int cash) {
+        setCash(cash);
+        if (cashDisplay != null) {
+            cashDisplay.setNumber(cash);
+        }
+        if (cashBar != null) {
+            cashBar.setNumber(cash);
+        }
+    }
+
+    public void updateTrouble(int trouble) {
+        setTrouble(trouble);
+        if (troubleDisplay != null) {
+            troubleDisplay.setNumber(trouble);
+        }
+        if (troubleBar != null) {
+            troubleBar.setNumber(trouble);
+        }
+    }
+
+    public void updateCost(int cost) {
+        setCost(cost);
+        if (costDisplay != null) {
+            costDisplay.setNumber(cost);
+        }
+        if (costBar != null) {
+            costBar.setNumber(cost);
+        }
+    }
+
+    public void updateHeart(int heart) {
+        setHeart(heart);
+        if (heartDisplay != null) {
+            heartDisplay.setNumber(heart);
+        }
+        if (heartBar != null) {
+            heartBar.setNumber(heart);
+        }
+    }
+
+    public HBox createStatBox(String symbolName, int value, DisplayNumbers valueLabel, DisplayBar displayBar) {
         HBox statBox = new HBox();
         ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale,12 *scale, true, false));
-        DisplayNumbers valueLabel = new DisplayNumbers(scale);
         valueLabel.setNumber(value);
-        DisplayBar displayBar = new DisplayBar(scale);
         displayBar.setNumber(value);
         StackPane barContainer = new StackPane(displayBar.getNumberBox()); // Assuming getNumberBox() returns ImageView
         barContainer.setPadding(new Insets(2*scale, 0, 0, 3*scale)); // Add padding
