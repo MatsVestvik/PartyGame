@@ -1,7 +1,6 @@
 package cards;
 
 import javafx.geometry.Pos;
-import javafx.scene.Pane;
 import javafx.scene.image.ImageView;
 import counter.DisplayBar;
 
@@ -21,9 +20,6 @@ import util.LoadImage;
 
 public class Base {
     StackPane cardPane;
-    ImageView intTrouble;
-    ImageView intCash;
-    ImageView intCost;
     HBox troubleBox;
     HBox cashBox;
     HBox costBox;
@@ -36,40 +32,45 @@ public class Base {
 
     public Base(int cash, int trouble, int cost, int heart, int scale) {
         this.scale = scale;
-        setCashVisual(cash);
-        setTroubleVisual(trouble);
-        setCostVisual(cost);
-        setHeartVisual(heart);
+        setCashBox(cash);
+        setTroubleBox(trouble);
+        setCostBox(cost);
+        setHeartBox(heart);
         createCardVisuals();
     }
     public StackPane getCardPane() {
         return cardPane;
     }
-    public ImageView getIntTrouble() {
-        return intTrouble;
+    public HBox getTroubleBox() {
+        return troubleBox;
     }
-    public ImageView getIntCash() {
-        return intCash;
+    public HBox getCashBox() {
+        return cashBox;
     }
-    public ImageView getIntCost() {
-        return intCost;
+    public HBox getCostBox() {
+        return costBox;
     }
-    public void setTroubleVisual(int trouble) {
+    public HBox getHeartBox() {
+        return heartBox;
+    }
+
+    public void setTroubleBox(int trouble) {
         this.troubleBox = createStatBox("trouble", trouble);
         setTrouble(trouble);
     }
-    public void setCostVisual(int cost) {
+    public void setCostBox(int cost) {
         this.costBox = createStatBox("coin", cost);
         setCost(cost);
     }
-    public void setHeartVisual(int heart) {
+    public void setHeartBox(int heart) {
         this.heartBox = createStatBox("heart", heart);
         setHeart(heart);
     }
-    public void setCashVisual(int cash) {
+    public void setCashBox(int cash) {
         this.cashBox = createStatBox("cash", cash);
         setCash(cash);
     }
+
     public void setCost(int cost) {
         this.cost = cost;
     }  

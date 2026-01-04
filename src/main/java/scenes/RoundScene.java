@@ -35,10 +35,10 @@ public class RoundScene {
 
         Button randomizeButton = new Button("Randomize Cards");
         randomizeButton.setOnAction(e -> {
-              baseCard.setCashVisual(new Random().nextInt(10));
-              baseCard.setTroubleVisual(new Random().nextInt(10));
-              baseCard.setCostVisual(new Random().nextInt(10)); 
-              baseCard.setHeartVisual(new Random().nextInt(10));
+              baseCard.setCashBox(new Random().nextInt(10));
+              baseCard.setTroubleBox(new Random().nextInt(10));
+              baseCard.setCostBox(new Random().nextInt(10)); 
+              baseCard.setHeartBox(new Random().nextInt(10));
         });
         cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane());
         root.getChildren().addAll(cards, randomizeButton);
