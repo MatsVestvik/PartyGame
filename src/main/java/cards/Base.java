@@ -1,6 +1,7 @@
 package cards;
 
 import javafx.geometry.Pos;
+import javafx.scene.Pane;
 import javafx.scene.image.ImageView;
 import counter.DisplayBar;
 
@@ -83,32 +84,43 @@ public class Base {
     }
 
     public HBox createStatBox(String symbolName, int value) {
-        HBox statBox = new HBox(scale/10);
-        int statsScale = scale;
-        ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *statsScale/1.5,12 *statsScale/1.5, true, false));
-        DisplayNumbers valueLabel = new DisplayNumbers((int)(statsScale/1.5));
+        HBox statBox = new HBox();
+        ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale,12 *scale, true, false));
+        DisplayNumbers valueLabel = new DisplayNumbers(scale);
         valueLabel.setNumber(value);
-        DisplayBar displayBar = new DisplayBar(statsScale);
+        DisplayBar displayBar = new DisplayBar(scale);
         displayBar.setNumber(value);
-        statBox.getChildren().addAll(symbolImageView, valueLabel.getNumberBox(), displayBar.getNumberBox());
+        StackPane barContainer = new StackPane(displayBar.getNumberBox()); // Assuming getNumberBox() returns ImageView
+        barContainer.setPadding(new Insets(2*scale, 0, 0, 3*scale)); // Add padding
+        statBox.getChildren().addAll(symbolImageView, valueLabel.getNumberBox(), barContainer);
         return statBox;
     }
 
     public void createCardVisuals() {
         this.cardPane = new StackPane();
-        Image cardImage = LoadImage.load("card/card.png",71 *scale,95 *scale, true, false); 
+        Image cardImage = LoadImage.load("card/card.png",80 *scale,107*scale, true, false); 
 
         
         ImageView cardImageView = new ImageView(cardImage);
+        Image placeholderImage = LoadImage.load("cardArt/placeholder.png",70*scale,37*scale, true, false);
+        ImageView placeholderImageView = new ImageView(placeholderImage);
+        Image normTag = LoadImage.load("tag/NORM.png",34*scale,9*scale, true, false);
+        ImageView normTagImageView = new ImageView(normTag);
         
-        VBox statsBox = new VBox(5 * scale);
+        VBox statsBox = new VBox(2*scale);
         statsBox.getChildren().add(cashBox);
         statsBox.getChildren().add(troubleBox);
         statsBox.getChildren().add(costBox);
         statsBox.getChildren().add(heartBox);
         cardPane.getChildren().add(cardImageView);
+        cardPane.getChildren().add(placeholderImageView);
         cardPane.getChildren().add(statsBox); 
+        cardPane.getChildren().add(normTagImageView);
+        StackPane.setAlignment(normTagImageView, Pos.TOP_LEFT);
+        StackPane.setMargin(normTagImageView, new Insets(6*scale, 0, 0, 0));
+        StackPane.setAlignment(placeholderImageView, Pos.TOP_CENTER);
+        StackPane.setMargin(placeholderImageView, new Insets(5*scale, 0, 0, 0));
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
-        StackPane.setMargin(statsBox, new Insets(40*scale, 0, 0, 4*scale));
+        StackPane.setMargin(statsBox, new Insets(45*scale, 0, 0, 4*scale));
     }
 }
