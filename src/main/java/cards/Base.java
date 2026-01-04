@@ -1,23 +1,15 @@
 package cards;
 
-import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
-import counter.DisplayBar;
-
 import javafx.geometry.Insets;
-import java.util.Stack;
-
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import counter.DisplayNumbers;
-
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import counter.DisplayNumbers;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
+
+import counter.DisplayBar;
+import counter.DisplayNumbers;
 import util.LoadImage;
 
 public class Base {
@@ -28,10 +20,12 @@ public class Base {
     HBox heartBox;
     ImageView cardImageView;
     ImageView rareImageView;
+    ImageView backImageView;
+    StackPane frontFace;
+    StackPane backFace;
+    Button flipFrontButton;
+    Button flipBackButton;
     ImageView cardArtView;
-    ImageView backSide;
-    Button flipButton;
-    StackPane back;
     DisplayNumbers cashDisplay;
     DisplayNumbers troubleDisplay;
     DisplayNumbers costDisplay;
@@ -47,6 +41,7 @@ public class Base {
     int heart;
     int color;
     int rarity;
+    boolean showingFront = true;
 
     public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity, String artName) {
         this.scale = scale;
@@ -105,10 +100,10 @@ public class Base {
     public void setCardImageView(int color) {
         this.color = color;
         ImageView newImageView = intToColor.getColorImageView(color, scale);
-        if (cardPane != null) {
-            int index = cardPane.getChildren().indexOf(cardImageView);
+        if (frontFace != null) {
+            int index = frontFace.getChildren().indexOf(cardImageView);
             if (index >= 0) {
-                cardPane.getChildren().set(index, newImageView);
+                frontFace.getChildren().set(index, newImageView);
                 StackPane.setAlignment(newImageView, Pos.TOP_LEFT);
             }
         }
@@ -117,10 +112,10 @@ public class Base {
     public void setRarityImageView(int rarity) {
         this.rarity = rarity;
         ImageView newRareImageView = intToRare.getRareImage(rarity, scale);
-        if (cardPane != null) {
-            int index = cardPane.getChildren().indexOf(rareImageView);
+        if (frontFace != null) {
+            int index = frontFace.getChildren().indexOf(rareImageView);
             if (index >= 0) {
-                cardPane.getChildren().set(index, newRareImageView);
+                frontFace.getChildren().set(index, newRareImageView);
                 StackPane.setAlignment(newRareImageView, Pos.TOP_LEFT);
                 StackPane.setMargin(newRareImageView, new Insets(6*scale, 0, 0, 0));
             }
@@ -129,10 +124,10 @@ public class Base {
     }
     public void setCardArtView(String artName) {
         this.cardArtView = cardArts.getCardArt(artName, scale);
-        if (cardPane != null) {
-            int index = cardPane.getChildren().indexOf(cardArtView);
+        if (frontFace != null) {
+            int index = frontFace.getChildren().indexOf(cardArtView);
             if (index >= 0) {
-                cardPane.getChildren().set(index, cardArtView);
+                frontFace.getChildren().set(index, cardArtView);
                 StackPane.setAlignment(cardArtView, Pos.TOP_CENTER);
                 StackPane.setMargin(cardArtView, new Insets(5*scale, 0, 0, 0));
             }
@@ -193,6 +188,30 @@ public class Base {
         }
     }
 
+    public void showFront() {
+        showingFront = true;
+        if (frontFace != null && backFace != null) {
+            frontFace.setVisible(true);
+            backFace.setVisible(false);
+        }
+    }
+
+    public void showBack() {
+        showingFront = false;
+        if (frontFace != null && backFace != null) {
+            frontFace.setVisible(false);
+            backFace.setVisible(true);
+        }
+    }
+
+    public void flipCard() {
+        showingFront = !showingFront;
+        if (frontFace != null && backFace != null) {
+            frontFace.setVisible(showingFront);
+            backFace.setVisible(!showingFront);
+        }
+    }
+
     public HBox createStatBox(String symbolName, int value, DisplayNumbers valueLabel, DisplayBar displayBar) {
         HBox statBox = new HBox();
         ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale,12 *scale, true, false));
@@ -205,30 +224,44 @@ public class Base {
     }
 
     public void createCardVisuals() {
-        this.cardPane = new StackPane();
-        
-        VBox statsBox = new VBox(2*scale);
-        statsBox.getChildren().add(cashBox);
-        statsBox.getChildren().add(troubleBox);
-        statsBox.getChildren().add(costBox);
-        statsBox.getChildren().add(heartBox);
-        cardPane.getChildren().add(cardImageView);
-        cardPane.getChildren().add(cardArtView);
-        cardPane.getChildren().add(statsBox); 
-        cardPane.getChildren().add(rareImageView);
-        StackPane.setAlignment(rareImageView, Pos.TOP_LEFT);
-        StackPane.setMargin(rareImageView, new Insets(6*scale, 0, 0, 0));
-        StackPane.setAlignment(cardArtView, Pos.TOP_CENTER);
-        StackPane.setMargin(cardArtView, new Insets(5*scale, 0, 0, 0));
+        cardPane = new StackPane();
+
+        // Front face setup
+        frontFace = new StackPane();
+        VBox statsBox = new VBox(2 * scale);
+        statsBox.getChildren().addAll(cashBox, troubleBox, costBox, heartBox);
+        frontFace.getChildren().addAll(cardImageView, cardArtView, statsBox, rareImageView);
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
-        StackPane.setMargin(statsBox, new Insets(45*scale, 0, 0, 4*scale));
-    }
-    
-    public void createBackSide() {
-        back = new StackPane();
-        backSide = new ImageView(LoadImage.load("card/back.png", 80*scale, 107*scale, true, false));
-        flipButton = new Button("Flip");
-        back.getChildren().add(backSide);
-        back.getChildren().add(flipButton);
+        StackPane.setAlignment(cardArtView, Pos.TOP_CENTER);
+        StackPane.setMargin(cardArtView, new Insets(5 * scale, 0, 0, 0));
+        StackPane.setMargin(statsBox, new Insets(45 * scale, 0, 0, 4 * scale));
+        StackPane.setAlignment(rareImageView, Pos.TOP_LEFT);
+        StackPane.setMargin(rareImageView, new Insets(6 * scale, 0, 0, 0));
+
+        flipFrontButton = new Button("Flip");
+        flipFrontButton.setOnAction(e -> flipCard());
+        frontFace.getChildren().add(flipFrontButton);
+        StackPane.setAlignment(flipFrontButton, Pos.BOTTOM_CENTER);
+        StackPane.setMargin(flipFrontButton, new Insets(0, 0, 6 * scale, 0));
+
+        // Back face setup
+        backFace = new StackPane();
+        if (backImageView == null) {
+            backImageView = new ImageView(LoadImage.load("card/back.png", 80 * scale, 107 * scale, true, false));
+        }
+        backFace.getChildren().add(backImageView);
+        StackPane.setAlignment(backImageView, Pos.TOP_LEFT);
+
+        flipBackButton = new Button("Flip");
+        flipBackButton.setOnAction(e -> flipCard());
+        backFace.getChildren().add(flipBackButton);
+        StackPane.setAlignment(flipBackButton, Pos.BOTTOM_CENTER);
+        StackPane.setMargin(flipBackButton, new Insets(0, 0, 6 * scale, 0));
+
+        cardPane.getChildren().addAll(frontFace, backFace);
+        backFace.setVisible(false);
+        cardPane.setOnMouseClicked(e -> flipCard());
+        cardPane.setOnMouseEntered(e -> showBack());
+        cardPane.setOnMouseExited(e -> showFront());
     }
 }
