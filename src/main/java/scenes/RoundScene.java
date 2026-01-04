@@ -48,8 +48,14 @@ public class RoundScene {
             randomizeCard(sixthBaseCard);
             randomizeCard(seventhBaseCard);
         });
+        Button shopButton = new Button("Go to Shop");
+        
+        shopButton.setOnAction(e -> { 
+            ShopScene shopScene = new ShopScene(stage);
+
+        });
         cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane(), thirdBaseCard.getCardPane(), fourthBaseCard.getCardPane(), fifthBaseCard.getCardPane(), sixthBaseCard.getCardPane(), seventhBaseCard.getCardPane());
-        root.getChildren().addAll(cards, randomizeButton);
+        root.getChildren().addAll(cards, randomizeButton, shopButton);
         Scene scene = new Scene(root, 400, 300);
         return scene;
     }    

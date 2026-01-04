@@ -10,4 +10,11 @@ public class cardArts {
         return new ImageView(artImage);
     }
     
+    public static String getRandCardArt(int scale) {
+        String[] artNames = {"dog", "placeholder"};
+        int randIndex = (int)(Math.random() * artNames.length);
+        String randArtName = artNames[randIndex];
+        return randArtName;
+    }
+    
 }
