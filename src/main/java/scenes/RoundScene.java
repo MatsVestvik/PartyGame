@@ -35,14 +35,20 @@ public class RoundScene {
         Base anotherBaseCard = new Base(2, 4, 1, 3, scale, 2, 2);
         Base thirdBaseCard = new Base(3, 2, 5, 1, scale, 1, 1);
         Base fourthBaseCard = new Base(4, 5, 3, 2, scale, 1, 2);
+        Base fifthBaseCard = new Base(1, 1, 1, 1, scale, 3, 3);
+        Base sixthBaseCard = new Base(6, 6, 6, 6, scale, 4, 4);
+        Base seventhBaseCard = new Base(0, 0, 0, 0, scale, 5, 5);
         Button randomizeButton = new Button("Randomize Cards");
         randomizeButton.setOnAction(e -> {
             randomizeCard(baseCard);
             randomizeCard(anotherBaseCard);
             randomizeCard(thirdBaseCard);
             randomizeCard(fourthBaseCard);
+            randomizeCard(fifthBaseCard);
+            randomizeCard(sixthBaseCard);
+            randomizeCard(seventhBaseCard);
         });
-        cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane(), thirdBaseCard.getCardPane(), fourthBaseCard.getCardPane());
+        cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane(), thirdBaseCard.getCardPane(), fourthBaseCard.getCardPane(), fifthBaseCard.getCardPane(), sixthBaseCard.getCardPane(), seventhBaseCard.getCardPane());
         root.getChildren().addAll(cards, randomizeButton);
         Scene scene = new Scene(root, 400, 300);
         return scene;
@@ -54,7 +60,7 @@ public class RoundScene {
         card.updateTrouble(rand.nextInt(10));
         card.updateCost(rand.nextInt(10)); 
         card.updateHeart(rand.nextInt(10));
-        card.setCardImageView(rand.nextInt(3) + 1);
+        card.setCardImageView(rand.nextInt(5) + 1);
         card.setRarityImageView(rand.nextInt(5) + 1);   
     }
 }
