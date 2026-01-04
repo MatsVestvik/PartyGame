@@ -1,5 +1,7 @@
 package cards;
 
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -7,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Stack;
 
 import counter.DisplayBar;
 import counter.DisplayNumbers;
@@ -42,8 +46,10 @@ public class Base {
     int color;
     int rarity;
     boolean showingFront = true;
+    String description;
+    Text descriptionText;
 
-    public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity, String artName) {
+    public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity, String artName, String description) {
         this.scale = scale;
         setCashBox(cash);
         setTroubleBox(trouble);
@@ -51,6 +57,8 @@ public class Base {
         setHeartBox(heart);
         setCardImageView(color);
         setCardArtView(artName);
+        this.description = description;
+        this.descriptionText = new Text(description);
         setRarityImageView(rarity);
         createCardVisuals();
 
@@ -217,8 +225,8 @@ public class Base {
         ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale,12 *scale, true, false));
         valueLabel.setNumber(value);
         displayBar.setNumber(value);
-        StackPane barContainer = new StackPane(displayBar.getNumberBox()); // Assuming getNumberBox() returns ImageView
-        barContainer.setPadding(new Insets(2*scale, 0, 0, 3*scale)); // Add padding
+        StackPane barContainer = new StackPane(displayBar.getNumberBox()); 
+        barContainer.setPadding(new Insets(2*scale, 0, 0, 3*scale)); 
         statBox.getChildren().addAll(symbolImageView, valueLabel.getNumberBox(), barContainer);
         return statBox;
     }
@@ -226,7 +234,6 @@ public class Base {
     public void createCardVisuals() {
         cardPane = new StackPane();
 
-        // Front face setup
         frontFace = new StackPane();
         VBox statsBox = new VBox(2 * scale);
         statsBox.getChildren().addAll(cashBox, troubleBox, costBox, heartBox);
@@ -238,25 +245,24 @@ public class Base {
         StackPane.setAlignment(rareImageView, Pos.TOP_LEFT);
         StackPane.setMargin(rareImageView, new Insets(6 * scale, 0, 0, 0));
 
-        flipFrontButton = new Button("Flip");
-        flipFrontButton.setOnAction(e -> flipCard());
-        frontFace.getChildren().add(flipFrontButton);
-        StackPane.setAlignment(flipFrontButton, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(flipFrontButton, new Insets(0, 0, 6 * scale, 0));
-
-        // Back face setup
         backFace = new StackPane();
         if (backImageView == null) {
             backImageView = new ImageView(LoadImage.load("card/back.png", 80 * scale, 107 * scale, true, false));
         }
         backFace.getChildren().add(backImageView);
+        
+        // Create TextFlow for text wrapping
+        TextFlow descriptionFlow = new TextFlow();
+        descriptionFlow.setPrefWidth(70 * scale);
+        descriptionFlow.setMaxWidth(70 * scale);
+        if (descriptionText != null) {
+            descriptionText.setWrappingWidth(70 * scale);
+            descriptionFlow.getChildren().add(descriptionText);
+        }
+        backFace.getChildren().add(descriptionFlow);
+        StackPane.setAlignment(descriptionFlow, Pos.TOP_LEFT);
+        StackPane.setMargin(descriptionFlow, new Insets(5 * scale, 5 * scale, 5 * scale, 5 * scale));
         StackPane.setAlignment(backImageView, Pos.TOP_LEFT);
-
-        flipBackButton = new Button("Flip");
-        flipBackButton.setOnAction(e -> flipCard());
-        backFace.getChildren().add(flipBackButton);
-        StackPane.setAlignment(flipBackButton, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(flipBackButton, new Insets(0, 0, 6 * scale, 0));
 
         cardPane.getChildren().addAll(frontFace, backFace);
         backFace.setVisible(false);

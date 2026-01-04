@@ -31,13 +31,13 @@ public class RoundScene {
         VBox root = new VBox(10);
         HBox cards = new HBox();
         int scale = 2;
-        Base baseCard = new Base(5, 3, 2, 4, scale, 1, 1, "dog");
-        Base anotherBaseCard = new Base(2, 4, 1, 3, scale, 2, 2, "placeholder");
-        Base thirdBaseCard = new Base(3, 2, 5, 1, scale, 1, 1, "dog");
-        Base fourthBaseCard = new Base(4, 5, 3, 2, scale, 1, 2, "placeholder");
-        Base fifthBaseCard = new Base(1, 1, 1, 1, scale, 3, 3, "dog");
-        Base sixthBaseCard = new Base(6, 6, 6, 6, scale, 4, 4, "placeholder");
-        Base seventhBaseCard = new Base(0, 0, 0, 0, scale, 5, 5, "dog");
+        Base baseCard = new Base(5, 3, 2, 4, scale, 1, 1, "dog", "A friendly dog card. When this card is played, gain 2 hearts.");
+        Base anotherBaseCard = new Base(2, 4, 1, 3, scale, 2, 2, "placeholder", "A placeholder card.");
+        Base thirdBaseCard = new Base(3, 2, 5, 1, scale, 1, 1, "dog", "Another dog card.");
+        Base fourthBaseCard = new Base(4, 5, 3, 2, scale, 1, 2, "placeholder", "Another placeholder card.");
+        Base fifthBaseCard = new Base(1, 1, 1, 1, scale, 3, 3, "dog", "Yet another dog card.");
+        Base sixthBaseCard = new Base(6, 6, 6, 6, scale, 4, 4, "placeholder", "Yet another placeholder card.");
+        Base seventhBaseCard = new Base(0, 0, 0, 0, scale, 5, 5, "dog", "The ultimate dog card.");
         Button randomizeButton = new Button("Randomize Cards");
         randomizeButton.setOnAction(e -> {
             randomizeCard(baseCard);
