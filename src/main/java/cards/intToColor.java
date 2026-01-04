@@ -14,7 +14,7 @@ public class intToColor {
             case 2:
                 return "green";
             case 3:
-                return "yellow";
+                return "rainbow";
             case 4:
                 return "purple";
             default:

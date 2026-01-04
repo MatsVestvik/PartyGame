@@ -54,7 +54,7 @@ public class RoundScene {
         card.updateTrouble(rand.nextInt(10));
         card.updateCost(rand.nextInt(10)); 
         card.updateHeart(rand.nextInt(10));
-        card.setCardImageView(rand.nextInt(2) + 1);
-        card.setRarityImageView(rand.nextInt(2) + 1);   
+        card.setCardImageView(rand.nextInt(3) + 1);
+        card.setRarityImageView(rand.nextInt(5) + 1);   
     }
 }

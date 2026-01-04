@@ -15,7 +15,11 @@ public class intToRare {
             case 2:
                 return "GOLD";
             case 3:
-                return "legendary";
+                return "DIAM";
+            case 4:
+                return "RARE";
+            case 5:
+                return "ULTRA";
             default:
                 return "unknown";
         }
