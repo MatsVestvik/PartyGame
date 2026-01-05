@@ -8,6 +8,8 @@ import deck.Deck;
 import scenes.SceneManager;
 
 import cards.Base;
+import cards.BasicCreatureCard;
+import cards.RandomCard;
 import cards.cardArts;
 import javafx.scene.layout.HBox;
 
@@ -29,7 +31,7 @@ public class ShopScene {
     }
     public void createRandomShopCards() {
         for (int i = 0; i < 5; i++) {
-            Base card = getRandomShopCard(); 
+            Base card = RandomCard.getRandomCard(2);
             card.getCardPane().setOnMouseClicked(e -> {
                 deck.addCard(card);
                 cardDisplay.getChildren().remove(card.getCardPane());
