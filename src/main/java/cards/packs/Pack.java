@@ -2,18 +2,14 @@ package cards.packs;
 
 import util.LoadImage;
 import scenes.ShopScene;
+import scenes.SceneManager;
 
 import javafx.scene.Cursor;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.paint.Color;
 import scenes.OpenedScene;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Button;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 public class Pack{
     ImageView packArt;
     int scale;
@@ -25,7 +21,7 @@ public class Pack{
         Image artImage = LoadImage.load("packs/" + name + ".png", 90* scale, 120* scale, true, false);
         return new ImageView(artImage);
     }
-    public StackPane getPackPane(ShopScene shopScene, Stage stage) {
+    public StackPane getPackPane(ShopScene shopScene, SceneManager sceneManager) {
         StackPane packPane = new StackPane();
         Button packButton = new Button();
         packButton.setStyle("-fx-background-color: transparent;");
@@ -42,10 +38,8 @@ public class Pack{
             packArt.setScaleY(1.0);
         });
         packButton.setOnAction(e -> {
-            OpenedScene openedScene = new OpenedScene(shopScene, stage, shopScene.getDeck());
-            Scene scene = openedScene.createOpenedScene();
-            stage.setScene(scene);
-            stage.setFullScreen(true);
+            OpenedScene openedScene = new OpenedScene(shopScene, sceneManager, shopScene.getDeck());
+            sceneManager.setRoot(openedScene.createOpenedRoot());
         });
 
         return packPane;

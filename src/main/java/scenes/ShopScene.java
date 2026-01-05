@@ -4,27 +4,25 @@ import cards.packs.Pack;
 import java.util.Random;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import deck.Deck;
+import scenes.SceneManager;
 
 import cards.Base;
 import cards.cardArts;
-import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 
 public class ShopScene {
     private HBox cardDisplay;
-    private Stage stage;
-    private Scene scene;
+    private SceneManager sceneManager;
     private Deck deck;
-    public ShopScene(Stage stage, Deck deck) {
-        this.stage = stage;
+    private VBox root;
+    public ShopScene(SceneManager sceneManager, Deck deck) {
+        this.sceneManager = sceneManager;
         this.deck = deck;
         cardDisplay = new HBox();
         createRandomShopCards();
-        scene = createShopScene();
-        stage.setScene(scene);
-        stage.setFullScreen(true);
+        root = createShopRoot();
+        sceneManager.setRoot(root);
     }    
     public HBox getCardDisplay() {
         return cardDisplay;
@@ -48,27 +46,26 @@ public class ShopScene {
         HBox packDisplay = new HBox();
         for (int i = 0; i < 3; i++) {
             Pack pack = new Pack("bluePack", 2);
-            packDisplay.getChildren().add(pack.getPackPane(this, stage));
+            packDisplay.getChildren().add(pack.getPackPane(this, sceneManager));
         }
         return packDisplay;
     }
     public void refreshShopScene() {
-        stage.setScene(scene);
-        stage.setFullScreen(true);
+        sceneManager.setRoot(root);
     }
     
     public Deck getDeck() {
         return deck;
     }
-    public Scene createShopScene(){
-        VBox root = new VBox();
+    public VBox createShopRoot(){
+        VBox rootLayout = new VBox();
         Button nextBattle = new Button("Next Battle");
         HBox packDisplay = getPackDisplay();
         nextBattle.setOnAction(e -> {
-            RoundScene roundScene = new RoundScene(stage, deck);
+            RoundScene roundScene = new RoundScene(sceneManager, deck);
             roundScene.runRoundScene();
         });
-        root.getChildren().addAll(cardDisplay, packDisplay, nextBattle);
-        return new Scene(root);
+        rootLayout.getChildren().addAll(cardDisplay, packDisplay, nextBattle);
+        return rootLayout;
     }
 }

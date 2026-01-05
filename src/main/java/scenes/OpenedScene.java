@@ -10,18 +10,17 @@ import java.util.List;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import scenes.SceneManager;
 public class OpenedScene {
     private HBox cardDisplay;
     private ShopScene shopScene;
-    private Stage stage;
     private Deck deck;
-    public OpenedScene(ShopScene shopScene, Stage stage, Deck deck) {
+    private SceneManager sceneManager;
+    public OpenedScene(ShopScene shopScene, SceneManager sceneManager, Deck deck) {
         cardDisplay = new HBox(10);
         this.shopScene = shopScene;
-        this.stage = stage;
+        this.sceneManager = sceneManager;
         this.deck = deck;
     }
     public void showOpenedPackCards(List<Base> cards) {
@@ -43,7 +42,7 @@ public class OpenedScene {
         return openedCards;
     }
     
-    public Scene createOpenedScene() {
+    public VBox createOpenedRoot() {
         StackPane cardWrapper = new StackPane();
         VBox root = new VBox(10);
         VBox cardContainer = new VBox();
@@ -62,8 +61,7 @@ public class OpenedScene {
         root.getChildren().add(cardContainer);
         root.getChildren().add(backToShop);
         VBox.setVgrow(cardContainer, Priority.ALWAYS);
-        
-        return new Scene(root, 800, 600);
+        return root;
     }
 
 }

@@ -1,36 +1,27 @@
 package scenes;
 
-import java.util.Random;
 import cards.Base;
 import javafx.scene.layout.HBox;
-import symbolsview.Symbols;
-import util.LoadImage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
-import counter.DisplayNumbers;
 import javafx.geometry.Insets;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import deck.Deck;
+import scenes.SceneManager;
+import scenes.ShopScene;
 
 public class RoundScene {
-    private Stage stage;
+    private SceneManager sceneManager;
     private Deck deck;
 
-    public RoundScene(Stage stage, Deck deck) {
-        this.stage = stage;
+    public RoundScene(SceneManager sceneManager, Deck deck) {
+        this.sceneManager = sceneManager;
         this.deck = deck;
     }
     public void runRoundScene() {
-        Scene scene = createRoundScene();
-        stage.setScene(scene);
-        stage.setFullScreen(true);
+        sceneManager.setRoot(createRoundRoot());
     }
-    public Scene createRoundScene() {
+    public VBox createRoundRoot() {
         VBox root = new VBox(10);
         root.setPadding(new Insets(15));
         
@@ -44,11 +35,10 @@ public class RoundScene {
         
         Button shopButton = new Button("Go to Shop");
         shopButton.setOnAction(e -> { 
-            ShopScene shopScene = new ShopScene(stage, deck);
+            ShopScene shopScene = new ShopScene(sceneManager, deck);
         });
         
         root.getChildren().addAll(deckLabel, deckDisplay, shopButton);
-        Scene scene = new Scene(root, 800, 600);
-        return scene;
+        return root;
     }    
 }

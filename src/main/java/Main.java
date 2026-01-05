@@ -1,7 +1,8 @@
 
 
 import scenes.InbetweenScene;
-import scenes.RoundScene;
+import scenes.SceneManager;
+import deck.Deck;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -15,7 +16,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        InbetweenScene inbetweenScene = new InbetweenScene(stage);
+        SceneManager sceneManager = new SceneManager(stage);
+        Deck deck = new Deck();
+        InbetweenScene inbetweenScene = new InbetweenScene(sceneManager, deck);
         inbetweenScene.runInbetweenScene();
         stage.show();
     }
