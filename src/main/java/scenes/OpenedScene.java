@@ -2,6 +2,8 @@ package scenes;
 
 import cards.Base;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Priority;
+import deck.Deck;
 
 import java.util.List;
 import javafx.scene.layout.HBox;
@@ -11,14 +13,21 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 public class OpenedScene {
     private HBox cardDisplay;
-    private Scene ShopScene;
-    public OpenedScene(Scene ShopScene) {
+    private ShopScene shopScene;
+    private Stage stage;
+    private Deck deck;
+    public OpenedScene(ShopScene shopScene, Stage stage, Deck deck) {
         cardDisplay = new HBox();
-        this.ShopScene = ShopScene;
-        
+        this.shopScene = shopScene;
+        this.stage = stage;
+        this.deck = deck;
     }
     public void showOpenedPackCards(List<Base> cards) {
         for (Base card : cards) {
+            card.getCardPane().setOnMouseClicked(e -> {
+                deck.addCard(card);
+                cardDisplay.getChildren().remove(card.getCardPane());
+            });
             cardDisplay.getChildren().add(card.getCardPane());
         }
     }
@@ -33,17 +42,23 @@ public class OpenedScene {
     }
     
     public Scene createOpenedScene() {
-        VBox root = new VBox();
+        VBox root = new VBox(10);
+        VBox cardContainer = new VBox();
         Button backToShop = new Button("Back to Shop");
+        backToShop.setStyle("-fx-font-size: 14; -fx-padding: 10; -fx-min-width: 100;");
         backToShop.setOnAction(e -> {
-            Stage stage = (Stage) backToShop.getScene().getWindow();
-            stage.setScene(ShopScene);
+            shopScene.refreshShopScene();
+            System.out.println("Returning to Shop Scene");
         });
 
         showOpenedPackCards(getOpenedCards(5));
-        root.getChildren().add(cardDisplay);
+        cardContainer.getChildren().add(cardDisplay);
+        
+        root.getChildren().add(cardContainer);
         root.getChildren().add(backToShop);
-        return new Scene(root);
+        VBox.setVgrow(cardContainer, Priority.ALWAYS);
+        
+        return new Scene(root, 800, 600);
     }
 
 }

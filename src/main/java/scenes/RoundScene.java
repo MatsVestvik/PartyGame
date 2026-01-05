@@ -15,12 +15,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import deck.Deck;
 
 public class RoundScene {
     private Stage stage;
+    private Deck deck;
 
-    public RoundScene(Stage stage) {
+    public RoundScene(Stage stage, Deck deck) {
         this.stage = stage;
+        this.deck = deck;
     }
     public void runRoundScene() {
         Scene scene = createRoundScene();
@@ -29,44 +32,23 @@ public class RoundScene {
     }
     public Scene createRoundScene() {
         VBox root = new VBox(10);
-        HBox cards = new HBox();
-        int scale = 2;
-        Base baseCard = new Base(5, 3, 2, 4, scale, 1, 1, "dog", "A friendly dog card. When this card is played, gain 2 hearts.");
-        Base anotherBaseCard = new Base(2, 4, 1, 3, scale, 2, 2, "placeholder", "A placeholder card.");
-        Base thirdBaseCard = new Base(3, 2, 5, 1, scale, 1, 1, "dog", "Another dog card.");
-        Base fourthBaseCard = new Base(4, 5, 3, 2, scale, 1, 2, "placeholder", "Another placeholder card.");
-        Base fifthBaseCard = new Base(1, 1, 1, 1, scale, 3, 3, "dog", "Yet another dog card.");
-        Base sixthBaseCard = new Base(6, 6, 6, 6, scale, 4, 4, "placeholder", "Yet another placeholder card.");
-        Base seventhBaseCard = new Base(0, 0, 0, 0, scale, 5, 5, "dog", "The ultimate dog card.");
-        Button randomizeButton = new Button("Randomize Cards");
-        randomizeButton.setOnAction(e -> {
-            randomizeCard(baseCard);
-            randomizeCard(anotherBaseCard);
-            randomizeCard(thirdBaseCard);
-            randomizeCard(fourthBaseCard);
-            randomizeCard(fifthBaseCard);
-            randomizeCard(sixthBaseCard);
-            randomizeCard(seventhBaseCard);
-        });
-        Button shopButton = new Button("Go to Shop");
+        root.setPadding(new Insets(15));
         
+        Label deckLabel = new Label("Your Deck (" + deck.size() + " cards):");
+        deckLabel.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
+        
+        HBox deckDisplay = new HBox(10);
+        for (Base card : deck.getCards()) {
+            deckDisplay.getChildren().add(card.getCardPane());
+        }
+        
+        Button shopButton = new Button("Go to Shop");
         shopButton.setOnAction(e -> { 
-            ShopScene shopScene = new ShopScene(stage);
-
+            ShopScene shopScene = new ShopScene(stage, deck);
         });
-        cards.getChildren().addAll(baseCard.getCardPane(), anotherBaseCard.getCardPane(), thirdBaseCard.getCardPane(), fourthBaseCard.getCardPane(), fifthBaseCard.getCardPane(), sixthBaseCard.getCardPane(), seventhBaseCard.getCardPane());
-        root.getChildren().addAll(cards, randomizeButton, shopButton);
-        Scene scene = new Scene(root, 400, 300);
+        
+        root.getChildren().addAll(deckLabel, deckDisplay, shopButton);
+        Scene scene = new Scene(root, 800, 600);
         return scene;
     }    
-    
-    public static void randomizeCard(Base card) {
-        Random rand = new Random();
-        card.updateCash(rand.nextInt(10));
-        card.updateTrouble(rand.nextInt(10));
-        card.updateCost(rand.nextInt(10)); 
-        card.updateHeart(rand.nextInt(10));
-        card.setCardImageView(rand.nextInt(5) + 1);
-        card.setRarityImageView(rand.nextInt(5) + 1);   
-    }
 }

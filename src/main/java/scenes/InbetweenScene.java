@@ -34,7 +34,8 @@ public class InbetweenScene {
 
         startButton.setOnAction(e -> {
             System.out.println("Game Started!");
-            RoundScene roundScene = new RoundScene(stage);
+            deck.Deck deck = new deck.Deck();
+            RoundScene roundScene = new RoundScene(stage, deck);
             roundScene.runRoundScene();
         });
         root.getChildren().addAll(title, startButton);

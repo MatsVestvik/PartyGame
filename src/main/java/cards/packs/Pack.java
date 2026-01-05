@@ -1,6 +1,7 @@
 package cards.packs;
 
 import util.LoadImage;
+import scenes.ShopScene;
 
 import javafx.scene.Cursor;
 import javafx.scene.effect.ColorAdjust;
@@ -24,7 +25,7 @@ public class Pack{
         Image artImage = LoadImage.load("packs/" + name + ".png", 90* scale, 120* scale, true, false);
         return new ImageView(artImage);
     }
-    public StackPane getPackPane(Scene shopScene, Stage stage) {
+    public StackPane getPackPane(ShopScene shopScene, Stage stage) {
         StackPane packPane = new StackPane();
         Button packButton = new Button();
         packButton.setStyle("-fx-background-color: transparent;");
@@ -41,9 +42,10 @@ public class Pack{
             packArt.setScaleY(1.0);
         });
         packButton.setOnAction(e -> {
-            OpenedScene openedScene = new OpenedScene(shopScene);
+            OpenedScene openedScene = new OpenedScene(shopScene, stage, shopScene.getDeck());
             Scene scene = openedScene.createOpenedScene();
             stage.setScene(scene);
+            stage.setFullScreen(true);
         });
 
         return packPane;
