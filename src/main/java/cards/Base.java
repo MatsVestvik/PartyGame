@@ -24,11 +24,11 @@ public class Base {
     HBox heartBox;
     ImageView cardImageView;
     ImageView rareImageView;
-    ImageView backImageView;
+    ImageView descriptionImageView;
     StackPane frontFace;
-    StackPane backFace;
-    Button flipFrontButton;
-    Button flipBackButton;
+    StackPane descriptionFace;
+    Button flipFaceButton;
+    Button flipDescriptionButton;
     ImageView cardArtView;
     DisplayNumbers cashDisplay;
     DisplayNumbers troubleDisplay;
@@ -196,27 +196,27 @@ public class Base {
         }
     }
 
-    public void showFront() {
+    public void showFace() {
         showingFront = true;
-        if (frontFace != null && backFace != null) {
+        if (frontFace != null && descriptionFace != null) {
             frontFace.setVisible(true);
-            backFace.setVisible(false);
+            descriptionFace.setVisible(false);
         }
     }
 
-    public void showBack() {
+    public void showDescription() {
         showingFront = false;
-        if (frontFace != null && backFace != null) {
+        if (frontFace != null && descriptionFace != null) {
             frontFace.setVisible(false);
-            backFace.setVisible(true);
+            descriptionFace.setVisible(true);
         }
     }
 
     public void flipCard() {
         showingFront = !showingFront;
-        if (frontFace != null && backFace != null) {
+        if (frontFace != null && descriptionFace != null) {
             frontFace.setVisible(showingFront);
-            backFace.setVisible(!showingFront);
+            descriptionFace.setVisible(!showingFront);
         }
     }
 
@@ -245,11 +245,11 @@ public class Base {
         StackPane.setAlignment(rareImageView, Pos.TOP_LEFT);
         StackPane.setMargin(rareImageView, new Insets(6 * scale, 0, 0, 0));
 
-        backFace = new StackPane();
-        if (backImageView == null) {
-            backImageView = new ImageView(LoadImage.load("card/back.png", 80 * scale, 107 * scale, true, false));
+        descriptionFace = new StackPane();
+        if (descriptionImageView == null) {
+            descriptionImageView = new ImageView(LoadImage.load("card/" + intToColor.convert(color) + "Card.png", 80 * scale, 107 * scale, true, false)); 
         }
-        backFace.getChildren().add(backImageView);
+        descriptionFace.getChildren().add(descriptionImageView);
         
         // Create TextFlow for text wrapping
         TextFlow descriptionFlow = new TextFlow();
@@ -259,15 +259,15 @@ public class Base {
             descriptionText.setWrappingWidth(70 * scale);
             descriptionFlow.getChildren().add(descriptionText);
         }
-        backFace.getChildren().add(descriptionFlow);
+        descriptionFace.getChildren().add(descriptionFlow);
         StackPane.setAlignment(descriptionFlow, Pos.TOP_LEFT);
         StackPane.setMargin(descriptionFlow, new Insets(5 * scale, 5 * scale, 5 * scale, 5 * scale));
-        StackPane.setAlignment(backImageView, Pos.TOP_LEFT);
+        StackPane.setAlignment(descriptionImageView, Pos.TOP_LEFT);
 
-        cardPane.getChildren().addAll(frontFace, backFace);
-        backFace.setVisible(false);
+        cardPane.getChildren().addAll(frontFace, descriptionFace);
+        descriptionFace.setVisible(false);
         cardPane.setOnMouseClicked(e -> flipCard());
-        cardPane.setOnMouseEntered(e -> showBack());
-        cardPane.setOnMouseExited(e -> showFront());
+        cardPane.setOnMouseEntered(e -> showDescription());
+        cardPane.setOnMouseExited(e -> showFace());
     }
 }

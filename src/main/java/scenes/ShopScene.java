@@ -19,7 +19,7 @@ public class ShopScene {
     public ShopScene(SceneManager sceneManager, Deck deck) {
         this.sceneManager = sceneManager;
         this.deck = deck;
-        cardDisplay = new HBox();
+        cardDisplay = new HBox(20);
         createRandomShopCards();
         root = createShopRoot();
         sceneManager.setRoot(root);
@@ -43,8 +43,8 @@ public class ShopScene {
         return card;
     }
     public HBox getPackDisplay(){
-        HBox packDisplay = new HBox();
-        for (int i = 0; i < 3; i++) {
+        HBox packDisplay = new HBox(20);
+        for (int i = 0; i < 4; i++) {
             Pack pack = new Pack("bluePack", 2);
             packDisplay.getChildren().add(pack.getPackPane(this, sceneManager));
         }
@@ -58,7 +58,7 @@ public class ShopScene {
         return deck;
     }
     public VBox createShopRoot(){
-        VBox rootLayout = new VBox();
+        VBox rootLayout = new VBox(20);
         Button nextBattle = new Button("Next Battle");
         HBox packDisplay = getPackDisplay();
         nextBattle.setOnAction(e -> {
