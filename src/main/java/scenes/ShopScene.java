@@ -1,11 +1,17 @@
 package scenes;
 
 import cards.packs.Pack;
+import javafx.scene.layout.StackPane;
+import util.LoadImage;
 import cards.specificCard.BasicCreatureCard;
 
 import java.util.Random;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import deck.Deck;
 import scenes.SceneManager;
 
@@ -18,7 +24,7 @@ public class ShopScene {
     private HBox cardDisplay;
     private SceneManager sceneManager;
     private Deck deck;
-    private VBox root;
+    private StackPane root;
     public ShopScene(SceneManager sceneManager, Deck deck) {
         this.sceneManager = sceneManager;
         this.deck = deck;
@@ -62,15 +68,19 @@ public class ShopScene {
     public Deck getDeck() {
         return deck;
     }
-    public VBox createShopRoot(){
-        VBox rootLayout = new VBox(20);
+    public StackPane createShopRoot(){
+        StackPane rootLayout = new StackPane();
+        ImageView backGroImageView = new ImageView(LoadImage.load("backgrounds/shopBackground.png",Screen.getPrimary().getBounds().getWidth(),Screen.getPrimary().getBounds().getHeight(), false, true));
+        VBox vboxLayout = new VBox(20);
         Button nextBattle = new Button("Next Battle");
         HBox packDisplay = getPackDisplay();
         nextBattle.setOnAction(e -> {
             RoundScene roundScene = new RoundScene(sceneManager, deck);
             roundScene.runRoundScene();
         });
-        rootLayout.getChildren().addAll(cardDisplay, packDisplay, nextBattle);
+        vboxLayout.getChildren().addAll(cardDisplay, packDisplay, nextBattle);
+        StackPane.setAlignment(vboxLayout, Pos.CENTER);
+        rootLayout.getChildren().addAll(backGroImageView, vboxLayout);
         return rootLayout;
     }
 }
