@@ -44,9 +44,11 @@ public class ShopScene {
     }
     public HBox getPackDisplay(){
         HBox packDisplay = new HBox(20);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 2; i++) {
             Pack pack = new Pack("bluePack", 2);
+            Pack redPack = new Pack("redPack", 2);
             packDisplay.getChildren().add(pack.getPackPane(this, sceneManager));
+            packDisplay.getChildren().add(redPack.getPackPane(this, sceneManager));
         }
         return packDisplay;
     }

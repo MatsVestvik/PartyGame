@@ -33,7 +33,7 @@ public class Pack{
         StackPane packPane = new StackPane();
         Button packButton = new Button();
         packButton.setStyle("-fx-background-color: transparent;");
-        packButton.setPrefSize(90*scale, 120*scale);
+        packButton.setPrefSize(90*scale, 140*scale);
         packPane.getChildren().add(packArt);
         packPane.getChildren().add(packButton);
         packButton.setOnMouseEntered(e -> {
