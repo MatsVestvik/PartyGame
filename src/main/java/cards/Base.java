@@ -257,6 +257,7 @@ public class Base {
         descriptionFlow.setMaxWidth(70 * scale);
         if (descriptionText != null) {
             descriptionText.setWrappingWidth(70 * scale);
+            descriptionText.getStyleClass().add("description-text");
             descriptionFlow.getChildren().add(descriptionText);
         }
         descriptionFace.getChildren().add(descriptionFlow);

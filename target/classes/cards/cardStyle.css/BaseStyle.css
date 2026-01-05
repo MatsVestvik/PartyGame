@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "BoldPixels";
+    src: url("/boldpixels/BoldPixels.ttf");
+}
+
+/* Description Text Color */
+.description-text {
+    -fx-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-font-family: "BoldPixels";
+}

@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 public class Pack{
     ImageView packArt;
     int scale;
@@ -46,6 +47,11 @@ public class Pack{
             packArt.setScaleY(1.0);
         });
         packButton.setOnAction(e -> {
+            // Remove this pack from the shop display when opened
+            if (packPane.getParent() instanceof HBox) {
+                HBox container = (HBox) packPane.getParent();
+                container.getChildren().remove(packPane);
+            }
             OpenedScene openedScene = new OpenedScene(shopScene, sceneManager, shopScene.getDeck());
             sceneManager.setRoot(openedScene.createOpenedRoot());
         });

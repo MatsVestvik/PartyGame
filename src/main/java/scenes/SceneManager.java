@@ -15,6 +15,11 @@ public class SceneManager {
     public SceneManager(Stage stage) {
         this.stage = stage;
         this.scene = new Scene(new StackPane(), 800, 600);
+        
+        // Load stylesheet
+        String css = getClass().getResource("/cards/cardStyle.css/BaseStyle.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        
         stage.setScene(scene);
         stage.setFullScreen(true);
     }
