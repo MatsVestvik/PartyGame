@@ -1,4 +1,6 @@
-package cards;
+package cards.specificCard;
+
+import cards.Base;
 
 public class DelinquantCreatureCard extends Base {
    public DelinquantCreatureCard(int scale) {

@@ -1,6 +1,7 @@
-package cards;
+package cards.specificCard;
 import java.util.Stack;
 
+import cards.Base;
 import javafx.scene.layout.StackPane;
 
 public class BasicCreatureCard extends Base{

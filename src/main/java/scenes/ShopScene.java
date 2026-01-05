@@ -1,6 +1,8 @@
 package scenes;
 
 import cards.packs.Pack;
+import cards.specificCard.BasicCreatureCard;
+
 import java.util.Random;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
@@ -8,7 +10,6 @@ import deck.Deck;
 import scenes.SceneManager;
 
 import cards.Base;
-import cards.BasicCreatureCard;
 import cards.RandomCard;
 import cards.cardArts;
 import javafx.scene.layout.HBox;
