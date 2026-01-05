@@ -3,6 +3,7 @@ package scenes;
 import cards.Base;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import deck.Deck;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import javafx.scene.layout.HBox;
 
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 public class OpenedScene {
     private HBox cardDisplay;
@@ -17,7 +19,7 @@ public class OpenedScene {
     private Stage stage;
     private Deck deck;
     public OpenedScene(ShopScene shopScene, Stage stage, Deck deck) {
-        cardDisplay = new HBox();
+        cardDisplay = new HBox(10);
         this.shopScene = shopScene;
         this.stage = stage;
         this.deck = deck;
@@ -42,8 +44,11 @@ public class OpenedScene {
     }
     
     public Scene createOpenedScene() {
+        StackPane cardWrapper = new StackPane();
         VBox root = new VBox(10);
         VBox cardContainer = new VBox();
+        cardWrapper.getChildren().add(cardDisplay);
+        StackPane.setAlignment(cardContainer,Pos.CENTER);
         Button backToShop = new Button("Back to Shop");
         backToShop.setStyle("-fx-font-size: 14; -fx-padding: 10; -fx-min-width: 100;");
         backToShop.setOnAction(e -> {
@@ -52,7 +57,7 @@ public class OpenedScene {
         });
 
         showOpenedPackCards(getOpenedCards(5));
-        cardContainer.getChildren().add(cardDisplay);
+        cardContainer.getChildren().add(cardWrapper);
         
         root.getChildren().add(cardContainer);
         root.getChildren().add(backToShop);

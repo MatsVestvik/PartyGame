@@ -27,8 +27,8 @@ public class RoundScene {
     }
     public void runRoundScene() {
         Scene scene = createRoundScene();
-        stage.setFullScreen(true);
         stage.setScene(scene);
+        stage.setFullScreen(true);
     }
     public Scene createRoundScene() {
         VBox root = new VBox(10);
