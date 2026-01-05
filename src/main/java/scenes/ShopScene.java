@@ -79,7 +79,8 @@ public class ShopScene {
             roundScene.runRoundScene();
         });
         vboxLayout.getChildren().addAll(cardDisplay, packDisplay, nextBattle);
-        StackPane.setAlignment(vboxLayout, Pos.CENTER);
+        VBox.setMargin(cardDisplay, new javafx.geometry.Insets(80, 0, 0, 220));
+        VBox.setMargin(packDisplay, new javafx.geometry.Insets(100, 0, 0, 260));
         rootLayout.getChildren().addAll(backGroImageView, vboxLayout);
         return rootLayout;
     }
