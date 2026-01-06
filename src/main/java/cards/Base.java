@@ -18,6 +18,7 @@ import util.LoadImage;
 
 public class Base {
     StackPane cardPane;
+    HBox statsBox;
     HBox troubleBox;
     HBox cashBox;
     HBox costBox;
@@ -84,25 +85,25 @@ public class Base {
     public void setTroubleBox(int trouble) {
         this.troubleDisplay = new DisplayNumbers(scale);
         this.troubleBar = new DisplayBar(scale);
-        this.troubleBox = createStatBox("trouble", trouble, troubleDisplay, troubleBar);
+        this.troubleBox = createStatBox("trouble", trouble, troubleDisplay);
         setTrouble(trouble);
     }
     public void setCostBox(int cost) {
         this.costDisplay = new DisplayNumbers(scale);
         this.costBar = new DisplayBar(scale);
-        this.costBox = createStatBox("coin", cost, costDisplay, costBar);
+        this.costBox = createStatBox("coin", cost, costDisplay);
         setCost(cost);
     }
     public void setHeartBox(int heart) {
         this.heartDisplay = new DisplayNumbers(scale);
         this.heartBar = new DisplayBar(scale);
-        this.heartBox = createStatBox("heart", heart, heartDisplay, heartBar);
+        this.heartBox = createStatBox("heart", heart, heartDisplay);
         setHeart(heart);
     }
     public void setCashBox(int cash) {
         this.cashDisplay = new DisplayNumbers(scale);
         this.cashBar = new DisplayBar(scale);
-        this.cashBox = createStatBox("cash", cash, cashDisplay, cashBar);
+        this.cashBox = createStatBox("cash", cash, cashDisplay);
         setCash(cash);
     }
     public void setCardImageView(int color) {
@@ -220,28 +221,30 @@ public class Base {
         }
     }
 
-    public HBox createStatBox(String symbolName, int value, DisplayNumbers valueLabel, DisplayBar displayBar) {
+    public HBox createStatBox(String symbolName, int value, DisplayNumbers valueLabel) {
         HBox statBox = new HBox();
         ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale,12 *scale, true, false));
         valueLabel.setNumber(value);
-        displayBar.setNumber(value);
-        StackPane barContainer = new StackPane(displayBar.getNumberBox()); 
-        barContainer.setPadding(new Insets(2*scale, 0, 0, 3*scale)); 
-        statBox.getChildren().addAll(symbolImageView, valueLabel.getNumberBox(), barContainer);
+        statBox.getChildren().addAll(symbolImageView, valueLabel.getNumberBox());
         return statBox;
+    }
+    
+    public HBox createStatBox() {
+        statsBox = new HBox(scale);
+
+        statsBox.getChildren().addAll(cashBox, troubleBox, heartBox);
+        return statsBox;
     }
 
     public void createCardVisuals() {
         cardPane = new StackPane();
 
         frontFace = new StackPane();
-        VBox statsBox = new VBox(2 * scale);
-        statsBox.getChildren().addAll(cashBox, troubleBox, costBox, heartBox);
-        frontFace.getChildren().addAll(cardImageView, cardArtView, statsBox, rareImageView);
+        frontFace.getChildren().addAll(cardImageView, cardArtView, createStatBox(), rareImageView);
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
-        StackPane.setAlignment(cardArtView, Pos.TOP_CENTER);
-        StackPane.setMargin(cardArtView, new Insets(5 * scale, 0, 0, 0));
-        StackPane.setMargin(statsBox, new Insets(45 * scale, 0, 0, 4 * scale));
+        StackPane.setAlignment(cardArtView, Pos.TOP_LEFT);
+        StackPane.setMargin(cardArtView, new Insets(6 * scale, 0, 0, 6*scale));
+        StackPane.setMargin(statsBox, new Insets(65 * scale, 0, 0, 4 * scale));
         StackPane.setAlignment(rareImageView, Pos.TOP_LEFT);
         StackPane.setMargin(rareImageView, new Insets(6 * scale, 0, 0, 0));
 
