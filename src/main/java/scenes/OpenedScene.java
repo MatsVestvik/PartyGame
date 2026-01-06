@@ -40,7 +40,7 @@ public class OpenedScene {
     public List<Base> getOpenedCards(int num) {
         List<Base> openedCards = new java.util.ArrayList<>(); 
         for (int i = 0; i < num; i++) {
-            Base card = RandomCard.getRandomCard(2); 
+            Base card = RandomCard.getRandomCard(3); 
             openedCards.add(card);
         }
         return openedCards;
