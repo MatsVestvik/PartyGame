@@ -26,7 +26,7 @@ public class intToColor {
 
     public static ImageView getColorImageView(int color, int scale) {
         String colorString = convert(color);
-        Image colorImage = LoadImage.load("card/" + colorString + "Card.png", 80* scale, 107* scale, true, false);
+        Image colorImage = LoadImage.load("card/" + colorString + "Card.png", 78* scale, 102* scale, true, false);
         return new ImageView(colorImage);
     }
     
