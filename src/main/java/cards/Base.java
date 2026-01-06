@@ -24,6 +24,7 @@ public class Base {
     HBox costBox;
     HBox heartBox;
     ImageView cardImageView;
+    ImageView characterArtView;
     ImageView rareImageView;
     ImageView descriptionImageView;
     StackPane frontFace;
@@ -49,17 +50,20 @@ public class Base {
     boolean showingFront = true;
     String description;
     Text descriptionText;
-    String cardName;
+    String cardArtName;
 
-    public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity, String artName, String description) {
+    public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity,
+         String artName, String description, String characterArtName) {
+
         this.scale = scale;
-        cardName = artName;
+        cardArtName = characterArtName;
         setCashBox(cash);
         setTroubleBox(trouble);
         setCostBox(cost);
         setHeartBox(heart);
         setCardImageView(color);
         setCardArtView(artName);
+        setCharacterArtView(characterArtName);
         this.description = description;
         this.descriptionText = new Text(description);
         setRarityImageView(rarity);
@@ -141,6 +145,15 @@ public class Base {
                 frontFace.getChildren().set(index, cardArtView);
                 StackPane.setAlignment(cardArtView, Pos.TOP_CENTER);
                 StackPane.setMargin(cardArtView, new Insets(3*scale, 0, 0, 0));
+            }
+        }
+    }
+    public void setCharacterArtView(String artName) {
+        this.characterArtView = intToCharacterArt.convert(artName, scale);
+        if (frontFace != null) {
+            int index = frontFace.getChildren().indexOf(characterArtView);
+            if (index >= 0) {
+                frontFace.getChildren().set(index, characterArtView);
             }
         }
     }
@@ -242,14 +255,18 @@ public class Base {
         cardPane = new StackPane();
 
         frontFace = new StackPane();
-        Text cardNameText = new Text(cardName);
+        Text cardNameText = new Text(cardArtName);
         cardNameText.getStyleClass().add("card-name-text");
-        frontFace.getChildren().addAll(cardImageView, cardArtView, createStatBox(), rareImageView, cardNameText);
+        StackPane charcterOnArt = new StackPane();
+        charcterOnArt.getChildren().addAll(cardArtView, characterArtView);
+        frontFace.getChildren().addAll(cardImageView, charcterOnArt, createStatBox(), rareImageView, cardNameText);
         StackPane.setAlignment(cardNameText, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(cardNameText,new Insets(0,6*scale,2*scale,0));
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
         StackPane.setAlignment(cardArtView, Pos.TOP_LEFT);
         StackPane.setMargin(cardArtView, new Insets(6 * scale, 0, 0, 6*scale));
+        StackPane.setAlignment(characterArtView, Pos.TOP_LEFT);
+        StackPane.setMargin(characterArtView, new Insets(6 * scale, 0, 0, 6*scale));
         StackPane.setMargin(statsBox, new Insets(65 * scale, 0, 0, 4 * scale));
         StackPane.setAlignment(rareImageView, Pos.TOP_LEFT);
         StackPane.setMargin(rareImageView, new Insets(6 * scale, 0, 0, 0));

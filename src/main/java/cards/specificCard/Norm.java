@@ -4,11 +4,12 @@ import java.util.Stack;
 import cards.Base;
 import javafx.scene.layout.StackPane;
 
-public class BasicCreatureCard extends Base{
+public class Norm extends Base{
 
-    public BasicCreatureCard(int scale) {
+    public Norm(int scale) {
         super(1, 1, 1, 1, scale, 1, 1, 
-            "BasicCreature","This Creature has no special abilities.");
+            "club","This Creature has no special abilities.",
+            "Norm");
     }    
     public void activateAbility() {
     }

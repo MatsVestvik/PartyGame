@@ -3,7 +3,7 @@ package scenes;
 import cards.packs.Pack;
 import javafx.scene.layout.StackPane;
 import util.LoadImage;
-import cards.specificCard.BasicCreatureCard;
+import cards.specificCard.Norm;
 
 import java.util.Random;
 import javafx.scene.layout.VBox;
@@ -18,6 +18,7 @@ import scenes.SceneManager;
 import cards.Base;
 import cards.RandomCard;
 import cards.cardArts;
+import cards.intToCharacterArt;
 import javafx.scene.layout.HBox;
 
 public class ShopScene {
@@ -48,7 +49,7 @@ public class ShopScene {
     }
     public Base getRandomShopCard() {
         Random rand = new Random();
-        Base card = new Base(rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), 2, rand.nextInt(5)+1, rand.nextInt(5)+1, cardArts.getRandCardArt(2), "A randomly generated shop card.") ;
+        Base card = new Base(rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), 2, rand.nextInt(5)+1, rand.nextInt(5)+1, cardArts.getRandCardArt(2), "A randomly generated shop card.", "norm") ;
         return card;
     }
     public HBox getPackDisplay(){
