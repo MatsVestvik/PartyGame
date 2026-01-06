@@ -1,6 +1,7 @@
 package scenes;
 
 import cards.Base;
+import cards.RandomCard;
 import cards.packs.Pack;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
@@ -8,6 +9,8 @@ import javafx.scene.layout.StackPane;
 import deck.Deck;
 
 import java.util.List;
+import java.util.Random;
+
 import javafx.scene.layout.HBox;
 
 import javafx.scene.control.Button;
@@ -37,7 +40,7 @@ public class OpenedScene {
     public List<Base> getOpenedCards(int num) {
         List<Base> openedCards = new java.util.ArrayList<>(); 
         for (int i = 0; i < num; i++) {
-            Base card = Pack.getRandomShopCard(); 
+            Base card = RandomCard.getRandomCard(2); 
             openedCards.add(card);
         }
         return openedCards;
