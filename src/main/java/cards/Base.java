@@ -49,9 +49,11 @@ public class Base {
     boolean showingFront = true;
     String description;
     Text descriptionText;
+    String cardName;
 
     public Base(int cash, int trouble, int cost, int heart, int scale, int color, int rarity, String artName, String description) {
         this.scale = scale;
+        cardName = artName;
         setCashBox(cash);
         setTroubleBox(trouble);
         setCostBox(cost);
@@ -240,7 +242,11 @@ public class Base {
         cardPane = new StackPane();
 
         frontFace = new StackPane();
-        frontFace.getChildren().addAll(cardImageView, cardArtView, createStatBox(), rareImageView);
+        Text cardNameText = new Text(cardName);
+        cardNameText.getStyleClass().add("card-name-text");
+        frontFace.getChildren().addAll(cardImageView, cardArtView, createStatBox(), rareImageView, cardNameText);
+        StackPane.setAlignment(cardNameText, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(cardNameText,new Insets(0,6*scale,2*scale,0));
         StackPane.setAlignment(cardImageView, Pos.TOP_LEFT);
         StackPane.setAlignment(cardArtView, Pos.TOP_LEFT);
         StackPane.setMargin(cardArtView, new Insets(6 * scale, 0, 0, 6*scale));
@@ -250,7 +256,7 @@ public class Base {
 
         descriptionFace = new StackPane();
         if (descriptionImageView == null) {
-            descriptionImageView = new ImageView(LoadImage.load("card/" + intToColor.convert(color) + "Card.png", 80 * scale, 107 * scale, true, false)); 
+            descriptionImageView = new ImageView(LoadImage.load("card/" + intToColor.convert(color) + "Card.png", 78* scale, 109* scale, true, false)); 
         }
         descriptionFace.getChildren().add(descriptionImageView);
         

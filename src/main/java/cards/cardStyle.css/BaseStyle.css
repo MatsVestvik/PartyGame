@@ -9,3 +9,9 @@
     -fx-font-size: 14px;
     -fx-font-family: "BoldPixels";
 }
+/* Card Name Text Color */
+.card-name-text {
+    -fx-fill: #000000;
+    -fx-font-size: 28px;
+    -fx-font-family: "BoldPixels";
+}
