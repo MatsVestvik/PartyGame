@@ -4,6 +4,7 @@ import javafx.stage.Screen;
 import cards.RandomCard;
 
 import cards.Base;
+import cards.RandomCard;
 import cards.packs.Pack;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
