@@ -137,7 +137,7 @@ public class Base {
             if (index >= 0) {
                 frontFace.getChildren().set(index, cardArtView);
                 StackPane.setAlignment(cardArtView, Pos.TOP_CENTER);
-                StackPane.setMargin(cardArtView, new Insets(5*scale, 0, 0, 0));
+                StackPane.setMargin(cardArtView, new Insets(3*scale, 0, 0, 0));
             }
         }
     }
