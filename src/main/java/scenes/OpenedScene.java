@@ -1,5 +1,8 @@
 package scenes;
 
+import javafx.stage.Screen;
+import cards.RandomCard;
+
 import cards.Base;
 import cards.packs.Pack;
 import javafx.scene.layout.VBox;
@@ -8,61 +11,59 @@ import javafx.scene.layout.StackPane;
 import deck.Deck;
 
 import java.util.List;
+import java.util.Random;
+import java.util.Stack;
+
 import javafx.scene.layout.HBox;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.geometry.Pos;
 import scenes.SceneManager;
+import util.LoadImage;
 public class OpenedScene {
     private HBox cardDisplay;
     private ShopScene shopScene;
     private Deck deck;
     private SceneManager sceneManager;
     public OpenedScene(ShopScene shopScene, SceneManager sceneManager, Deck deck) {
-        cardDisplay = new HBox(10);
+        cardDisplay = getOpenedCards(5);
         this.shopScene = shopScene;
         this.sceneManager = sceneManager;
         this.deck = deck;
     }
-    public void showOpenedPackCards(List<Base> cards) {
-        for (Base card : cards) {
-            card.getCardPane().setOnMouseClicked(e -> {
-                deck.addCard(card);
-                cardDisplay.getChildren().remove(card.getCardPane());
-            });
-            cardDisplay.getChildren().add(card.getCardPane());
-        }
-    }
     
-    public List<Base> getOpenedCards(int num) {
-        List<Base> openedCards = new java.util.ArrayList<>(); 
+    public HBox getOpenedCards(int num) {
+        HBox openedCards = new HBox(10);
         for (int i = 0; i < num; i++) {
-            Base card = Pack.getRandomShopCard(); 
-            openedCards.add(card);
+            Base card = RandomCard.getRandomCard(2); 
+            openedCards.getChildren().add(card.getCardPane());
         }
         return openedCards;
     }
     
-    public VBox createOpenedRoot() {
-        StackPane cardWrapper = new StackPane();
-        VBox root = new VBox(10);
-        VBox cardContainer = new VBox();
-        cardWrapper.getChildren().add(cardDisplay);
-        StackPane.setAlignment(cardContainer,Pos.CENTER);
+    public StackPane createOpenedRoot() {
+        StackPane withBackground = new StackPane();
+        ImageView background = new ImageView(LoadImage.load("backgrounds/openedBackground.png", 
+            Screen.getPrimary().getBounds().getWidth(), 
+            Screen.getPrimary().getBounds().getHeight(), 
+            false, false));
+        withBackground.getChildren().add(background);
         Button backToShop = new Button("Back to Shop");
         backToShop.setStyle("-fx-font-size: 14; -fx-padding: 10; -fx-min-width: 100;");
         backToShop.setOnAction(e -> {
             shopScene.refreshShopScene();
             System.out.println("Returning to Shop Scene");
         });
-
-        showOpenedPackCards(getOpenedCards(5));
-        cardContainer.getChildren().add(cardWrapper);
+        VBox cardWrapper = new VBox(20);
+        cardWrapper.getChildren().add(cardDisplay);
+        cardWrapper.getChildren().add(backToShop);
+        withBackground.getChildren().add(cardWrapper);
         
-        root.getChildren().add(cardContainer);
-        root.getChildren().add(backToShop);
-        VBox.setVgrow(cardContainer, Priority.ALWAYS);
-        return root;
+        StackPane.setAlignment(cardWrapper, Pos.CENTER);
+        StackPane.setAlignment(backToShop, Pos.BOTTOM_CENTER);
+        StackPane.setMargin(backToShop, new javafx.geometry.Insets(0, 0, 20, 0));
+        return withBackground;
     }
 
 }
