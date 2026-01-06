@@ -4,7 +4,7 @@ import cards.Base;
 
 public class DelinquantCreatureCard extends Base {
    public DelinquantCreatureCard(int scale) {
-        super(3, 3, 3, 3, scale, 2, 2, 
+        super(9, 9, 3, 9, scale, 5,5, 
         "dog","This Creature causes trouble wherever it goes.");
    } 
 }
