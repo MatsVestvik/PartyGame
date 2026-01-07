@@ -236,6 +236,10 @@ public class Base {
         }
     }
 
+    public ImageView getCardBackside(int scale){
+        return new ImageView(LoadImage.load("card/back.png", 78* scale, 109* scale, true, false));
+    }
+
     public HBox createStatBox(String symbolName, int value, DisplayNumbers valueLabel) {
         HBox statBox = new HBox();
         ImageView symbolImageView = new ImageView(LoadImage.load("symbols/" + symbolName + ".png",12 *scale,12 *scale, true, false));
