@@ -22,13 +22,15 @@ public class RoundScene {
     
     Deck deck;
     SceneManager sceneManager;
-    HBox cardsInHand;
+    StackPane cardsInHand;
     int cardsHeld;
+    private static final int MAX_SPREAD = 100; // Maximum spacing between cards before they overlap
+    
     public RoundScene(SceneManager sceneManager, Deck deck) {
         this.sceneManager = sceneManager;
         this.deck = deck;
         this.cardsHeld = 0;
-        cardsInHand = new HBox(10);
+        cardsInHand = new StackPane();
         cardsInHand.setPrefHeight(120);
     }
 
@@ -84,6 +86,26 @@ public class RoundScene {
         
         cardsInHand.getChildren().add(cardPane);
         cardsHeld++;
+        repositionCards();
+    }
+    
+    private void repositionCards() {
+        // Allow up to ~8 cards without overlap, then compress to keep total width stable
+        int spacing = MAX_SPREAD;
+        if (cardsHeld > 1) {
+            int visibleSlotsWithoutOverlap = 8; // roughly how many cards before we start overlapping
+            if (cardsHeld > visibleSlotsWithoutOverlap) {
+                double allowedWidth = MAX_SPREAD * (visibleSlotsWithoutOverlap - 1); // keep hand within this width
+                spacing = (int) Math.max(40, Math.floor(allowedWidth / (cardsHeld - 1)));
+            }
+        }
+        
+        // Reposition all cards
+        for (int i = 0; i < cardsInHand.getChildren().size(); i++) {
+            StackPane card = (StackPane) cardsInHand.getChildren().get(i);
+            card.setTranslateX(i * spacing);
+            StackPane.setAlignment(card, javafx.geometry.Pos.BOTTOM_LEFT);
+        }
     }
     
     private void playCreature(Creature creature) {
@@ -107,20 +129,10 @@ public class RoundScene {
             // Remove from hand
             cardsInHand.getChildren().remove(creature.getCardPane());
             cardsHeld--;
-            
-            System.out.println("Creature placed on club!");
-        }
-    }// Update hand width based on remaining cards
-            updateHandWidth();
+            repositionCards();
             
             System.out.println("Creature placed on club! Cards in hand: " + cardsHeld);
         }
     }
-    
-    private void updateHandWidth() {
-        // Set preferred width based on number of cards
-        if (cardsHeld == 0) {
-            cardsInHand.setPrefWidth(0);
-        } else {
-            cardsInHand.setPrefWidth(cardsHeld * 80 + (cardsHeld - 1) * 10
 }
+
