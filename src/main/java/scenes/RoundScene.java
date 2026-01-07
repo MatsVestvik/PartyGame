@@ -10,8 +10,7 @@ import javafx.stage.Screen;
 import util.LoadImage;
 import deck.Deck;
 import scenes.SceneManager;
-import java.util.Stack;
-
+import cards.Base;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
@@ -24,6 +23,8 @@ public class RoundScene {
         this.deck = deck;
     }
 
+    private HBox cardsInHand;
+
     public void runRoundScene() {
         sceneManager.fadeTo(createRoundRoot(),0);        
     }
@@ -31,7 +32,8 @@ public class RoundScene {
     public StackPane createRoundRoot() {
 
         
-        StackPane deckView = deck.getDeckPane();
+        cardsInHand = new HBox(10);
+        StackPane deckView = deck.getDeckPane(this::addCardToHand);
         Button next = new Button("Next");
         next.setOnAction(e -> {
             ShopScene shopScene = new ShopScene(sceneManager, deck);
@@ -43,12 +45,12 @@ public class RoundScene {
         VBox clubPane = Club.getClubPane();
         VBox rightBox = new VBox();
         rightBox.getChildren().add(clubPane);
-        HBox cardsInHand = new HBox();
         rightBox.getChildren().add(cardsInHand);
         HBox horizontal = new HBox();
         horizontal.getChildren().addAll(container, rightBox);
         HBox.setMargin(rightBox, new javafx.geometry.Insets(50, 0, 0, 200));
         container.setMaxWidth(100);
+        container.setMinWidth(100);
         StackPane withBackground = new StackPane(); 
         ImageView background = new ImageView(LoadImage.load("backgrounds/rainbowBackground.png", 
             Screen.getPrimary().getBounds().getWidth(), 
@@ -58,5 +60,10 @@ public class RoundScene {
         withBackground.getChildren().addAll(background, horizontal);
         
         return withBackground;
+    }
+
+    private void addCardToHand(Base card) {
+        card.showFace();
+        cardsInHand.getChildren().add(card.getCardPane());
     }
 }
