@@ -62,6 +62,7 @@ public class OpenedScene {
         withBackground.getChildren().add(cardWrapper);
         
         StackPane.setAlignment(cardWrapper, Pos.CENTER);
+        StackPane.setMargin(cardWrapper, new javafx.geometry.Insets(300,0,0, 300));
         StackPane.setAlignment(backToShop, Pos.BOTTOM_CENTER);
         StackPane.setMargin(backToShop, new javafx.geometry.Insets(0, 0, 20, 0));
         return withBackground;
