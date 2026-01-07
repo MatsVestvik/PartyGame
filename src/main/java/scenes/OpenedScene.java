@@ -37,7 +37,11 @@ public class OpenedScene {
     public HBox getOpenedCards(int num) {
         HBox openedCards = new HBox(10);
         for (int i = 0; i < num; i++) {
-            Base card = RandomCard.getRandomCard(2); 
+            Base card = RandomCard.getRandomCard(2);
+            card.getCardPane().setOnMouseClicked(e -> {
+                deck.addCard(card);
+                openedCards.getChildren().remove(card.getCardPane());
+            });
             openedCards.getChildren().add(card.getCardPane());
         }
         return openedCards;

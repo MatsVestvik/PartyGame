@@ -9,9 +9,13 @@ import java.util.function.Consumer;
 
 public class Deck {
     private List<Base> cards;
+    private List<Base> drawnCards;
+    private int cardsDrawnThisRound;
     
     public Deck() {
         this.cards = new ArrayList<>();
+        this.drawnCards = new ArrayList<>();
+        this.cardsDrawnThisRound = 0;
     }
     
     public void addCard(Base card) {
@@ -25,10 +29,18 @@ public class Deck {
     }
     
     public Base drawTop() {
-        if (cards.isEmpty()) {
+        if (cards.size() - cardsDrawnThisRound <= 0) {
             return null;
         }
-        return cards.remove(cards.size() - 1);
+        Base drawnCard = cards.get(cards.size() - 1 - cardsDrawnThisRound);
+        drawnCards.add(drawnCard);
+        cardsDrawnThisRound++;
+        return drawnCard;
+    }
+    
+    public void returnDrawnCards() {
+        drawnCards.clear();
+        cardsDrawnThisRound = 0;
     }
 
     public StackPane getDeckPane(Consumer<Base> onDraw) {
@@ -41,7 +53,9 @@ public class Deck {
         deckPane.getChildren().clear();
         int offset = 0;
         int scale = 2;
-        for (Base card : cards) {
+        int availableCards = cards.size() - cardsDrawnThisRound;
+        for (int i = 0; i < availableCards; i++) {
+            Base card = cards.get(cards.size() - 1 - i);
             var back = card.getCardBackside(scale);
             deckPane.getChildren().add(back);
             back.setTranslateX(-offset);
@@ -50,7 +64,7 @@ public class Deck {
                 offset += 4;
             }
         }
-        Button deckButton = new Button("Deck (" + cards.size() + " cards)");
+        Button deckButton = new Button("Deck (" + availableCards + " cards)");
         deckButton.setOnAction(e -> {
             Base drawn = drawTop();
             if (drawn != null) {
@@ -72,6 +86,8 @@ public class Deck {
     }
     
     public void clear() {
+        cardsDrawnThisRound = 0;
         cards.clear();
+        drawnCards.clear();
     }
 }

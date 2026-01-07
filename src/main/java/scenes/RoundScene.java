@@ -18,24 +18,26 @@ public class RoundScene {
     
     Deck deck;
     SceneManager sceneManager;
+    StackPane cardsInHand;
+    int cardsHeld;
     public RoundScene(SceneManager sceneManager, Deck deck) {
         this.sceneManager = sceneManager;
         this.deck = deck;
+        this.cardsHeld = 0;
+        cardsInHand = new StackPane();
     }
-
-    private HBox cardsInHand;
 
     public void runRoundScene() {
         sceneManager.fadeTo(createRoundRoot(),0);        
     }
-
+    
     public StackPane createRoundRoot() {
 
         
-        cardsInHand = new HBox(10);
         StackPane deckView = deck.getDeckPane(this::addCardToHand);
         Button next = new Button("Next");
         next.setOnAction(e -> {
+            deck.returnDrawnCards();
             ShopScene shopScene = new ShopScene(sceneManager, deck);
         });
         VBox container = new VBox(10);
@@ -65,5 +67,7 @@ public class RoundScene {
     private void addCardToHand(Base card) {
         card.showFace();
         cardsInHand.getChildren().add(card.getCardPane());
+        StackPane.setMargin(card.getCardPane(), new javafx.geometry.Insets(0, 0, 0, 50*cardsHeld));
+        cardsHeld++;
     }
 }

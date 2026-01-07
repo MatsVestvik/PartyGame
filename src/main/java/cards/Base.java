@@ -296,6 +296,10 @@ public class Base {
         StackPane.setAlignment(descriptionImageView, Pos.TOP_LEFT);
 
         cardPane.getChildren().addAll(frontFace, descriptionFace);
+        cardPane.setMaxWidth(78 * scale);
+        cardPane.setMaxHeight(109 * scale);
+        cardPane.setPrefWidth(78 * scale);
+        cardPane.setPrefHeight(109 * scale);
         descriptionFace.setVisible(false);
         cardPane.setOnMouseClicked(e -> flipCard());
         cardPane.setOnMouseEntered(e -> showDescription());
