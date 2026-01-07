@@ -1,5 +1,9 @@
 package scenes;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
+import util.LoadImage;
 import cards.Base;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
@@ -19,9 +23,14 @@ public class RoundScene {
         this.deck = deck;
     }
     public void runRoundScene() {
-        sceneManager.setRoot(createRoundRoot());
+        sceneManager.fadeTo(createRoundRoot(),0);
     }
-    public VBox createRoundRoot() {
+    public StackPane createRoundRoot() {
+        StackPane withBackground = new StackPane();
+        ImageView background = new ImageView(LoadImage.load("backgrounds/rainbowBackground.png", 
+            Screen.getPrimary().getBounds().getWidth(), 
+            Screen.getPrimary().getBounds().getHeight(), 
+            false, false));
         VBox root = new VBox(10);
         root.setPadding(new Insets(15));
         
@@ -39,6 +48,7 @@ public class RoundScene {
         });
         
         root.getChildren().addAll(deckLabel, deckDisplay, shopButton);
-        return root;
+        withBackground.getChildren().addAll(background, root);
+        return withBackground;
     }    
 }

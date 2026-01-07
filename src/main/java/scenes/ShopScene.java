@@ -63,7 +63,7 @@ public class ShopScene {
         return packDisplay;
     }
     public void refreshShopScene() {
-        sceneManager.setRoot(root);
+        sceneManager.fadeTo(root, 100);
     }
     
     public Deck getDeck() {

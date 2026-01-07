@@ -1,4 +1,10 @@
 package scenes;
+import java.util.Stack;
+
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
+import util.LoadImage;
 import counter.DisplayNumbers;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,6 +33,11 @@ public class InbetweenScene {
     }
 
     public Parent createInbetweenView() {
+        StackPane withBackground = new StackPane();
+        ImageView background = new ImageView(LoadImage.load("backgrounds/rainbowBackground.png", 
+            Screen.getPrimary().getBounds().getWidth(), 
+            Screen.getPrimary().getBounds().getHeight(), 
+            false, false));
         stage.setTitle("Party Game");
         VBox root = new VBox(10);
         root.setPadding(new Insets(20));
@@ -43,6 +54,7 @@ public class InbetweenScene {
             roundScene.runRoundScene();
         });
         root.getChildren().addAll(title, startButton);
-        return root;
+        withBackground.getChildren().addAll(background, root);
+        return withBackground;
     }    
 }

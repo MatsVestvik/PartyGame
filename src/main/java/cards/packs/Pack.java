@@ -25,11 +25,7 @@ public class Pack{
         Image artImage = LoadImage.load("packs/" + name + ".png", 90* scale, 120* scale, true, false);
         return new ImageView(artImage);
     }
-    public static Base getRandomShopCard() {
-        Random rand = new Random();
-        Base card = new Base(rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), rand.nextInt(10), 2, rand.nextInt(5)+1, rand.nextInt(5)+1, cardArts.getRandCardArt(2), "A randomly generated shop card.", "norm") ;
-        return card;
-    }
+
     public StackPane getPackPane(ShopScene shopScene, SceneManager sceneManager) {
         StackPane packPane = new StackPane();
         Button packButton = new Button();
@@ -53,7 +49,7 @@ public class Pack{
                 container.getChildren().remove(packPane);
             }
             OpenedScene openedScene = new OpenedScene(shopScene, sceneManager, shopScene.getDeck());
-            sceneManager.setRoot(openedScene.createOpenedRoot());
+            sceneManager.fadeTo(openedScene.createOpenedRoot(), 1000);
         });
 
         return packPane;
