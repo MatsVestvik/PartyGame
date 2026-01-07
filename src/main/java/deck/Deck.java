@@ -65,6 +65,14 @@ public class Deck {
             }
         }
         Button deckButton = new Button("Deck (" + availableCards + " cards)");
+        deckButton.setStyle("-fx-background-color: transparent; -fx-text-fill: transparent; -fx-border-color: transparent;");
+        deckButton.setPrefWidth(78 * scale);
+        deckButton.setPrefHeight(109 * scale);
+        deckButton.setMinWidth(78 * scale);
+        deckButton.setMinHeight(109 * scale);
+        deckButton.setMaxWidth(78 * scale);
+        deckButton.setMaxHeight(109 * scale);
+
         deckButton.setOnAction(e -> {
             Base drawn = drawTop();
             if (drawn != null) {

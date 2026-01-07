@@ -1,10 +1,10 @@
 package cards.specificCard;
 import java.util.Stack;
 
-import cards.Base;
+import cards.Creature;
 import javafx.scene.layout.StackPane;
 
-public class Norm extends Base{
+public class Norm extends Creature{
 
     public Norm(int scale) {
         super(1, 1, 1, 1, scale, 1, 1, 

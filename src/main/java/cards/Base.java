@@ -88,6 +88,9 @@ public class Base {
     public ImageView getCardArtView() {
         return cardArtView;
     }
+    public ImageView getCharacterArtView() {
+        return characterArtView;
+    }
     public void setTroubleBox(int trouble) {
         this.troubleDisplay = new DisplayNumbers(scale);
         this.troubleBar = new DisplayBar(scale);
@@ -296,10 +299,6 @@ public class Base {
         StackPane.setAlignment(descriptionImageView, Pos.TOP_LEFT);
 
         cardPane.getChildren().addAll(frontFace, descriptionFace);
-        cardPane.setMaxWidth(78 * scale);
-        cardPane.setMaxHeight(109 * scale);
-        cardPane.setPrefWidth(78 * scale);
-        cardPane.setPrefHeight(109 * scale);
         descriptionFace.setVisible(false);
         cardPane.setOnMouseClicked(e -> flipCard());
         cardPane.setOnMouseEntered(e -> showDescription());
